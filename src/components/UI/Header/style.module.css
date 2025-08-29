@@ -1,0 +1,16 @@
+.wrapper {
+  padding: 16px;
+  width: 100%;
+  z-index: 9998;
+  box-sizing: border-box;
+  position: fixed;
+  left: 0;
+  top: 0;
+}
+
+.inner {
+  padding: 8px;
+  background-color: var(--white);
+  border: 1px solid var(--gridline);
+  border-radius: 100px;
+}

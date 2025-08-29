@@ -1,33 +1,36 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import styles from "./style.module.css";
-import Square from "../Square/Square";
+import SquareRow from "../SquareRow/SquareRow";
+
 interface SquareGridProps {}
 
 const SquareGrid: React.FC<SquareGridProps> = ({}) => {
-  const [squares, setSquares] = useState<number | null>(null);
-  const [squareSize, setSquareSize] = useState<number | null>(null);
-
-  useEffect(() => {
-    const screenWidth = window.innerWidth;
-    const screenHeight = window.innerHeight;
-    const squareLength = screenWidth / 24;
-    const squareRowsAmount = Math.ceil(screenHeight / squareLength);
-    const squaresAmount = 24 * squareRowsAmount;
-
-    setSquareSize(squareLength);
-    setSquares(squaresAmount);
-  }, []);
-
   return (
-    <div
-      className={`${styles.grid} ffff`}
-      style={{
-        gridTemplateRows: `repeat(${squares}, ${squareSize}px)`,
-      }}
-    >
-      {new Array(squares).fill(0).map((_, index) => (
-        <Square key={index} index={index} />
-      ))}
+    <div className={styles.grid}>
+      <SquareRow />
+      <SquareRow />
+      <SquareRow />
+      <SquareRow />
+      <SquareRow />
+      {/* 2, 12 fill */}
+      <SquareRow />
+      <SquareRow />
+      <SquareRow />
+      {/* row with detected pirate stream */}
+      <SquareRow streams={[{ type: "ilegal", position: 18 }]} />
+      {/* central row */}
+      <SquareRow />
+      <SquareRow />
+      <SquareRow />
+      {/* 13 fill */}
+      <SquareRow />
+      <SquareRow />
+      <SquareRow />
+      {/* 5, 19 fill */}
+      <SquareRow />
+      <SquareRow />
+      <SquareRow />
+      <SquareRow />
     </div>
   );
 };
