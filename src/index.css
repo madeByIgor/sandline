@@ -20,7 +20,11 @@
 
 body {
   margin: 0;
-  /* display: flex; */
-  /* place-items: center; */
+  color: var(--textblack);
   min-height: 100vh;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
 }

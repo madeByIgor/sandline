@@ -1,0 +1,9 @@
+.wrapper {
+  padding: 18px 32px;
+  background-color: var(--sand);
+  color: var(--white);
+  border-radius: 64px;
+  font-size: 14px;
+  cursor: pointer;
+  text-decoration: none;
+}

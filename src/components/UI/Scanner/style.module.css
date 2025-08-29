@@ -1,0 +1,39 @@
+.wrapper {
+  width: 80px;
+  height: 100vh;
+  position: absolute;
+  left: -80px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1;
+  overflow: hidden;
+}
+
+.line {
+  width: 1.5px;
+  height: 100%;
+  background: linear-gradient(
+    180deg,
+    rgba(178, 149, 96, 1) 0%,
+    rgba(83, 60, 255, 1) 50%,
+    rgba(178, 149, 96, 1) 100%
+  );
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 1;
+}
+
+.blur {
+  width: 10px;
+  height: 100%;
+  right: 0;
+  position: absolute;
+  filter: blur(28px);
+  background: linear-gradient(
+    180deg,
+    rgba(178, 149, 96, 1) 0%,
+    rgba(83, 60, 255, 1) 50%,
+    rgba(178, 149, 96, 1) 100%
+  );
+}
