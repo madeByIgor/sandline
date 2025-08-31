@@ -36,3 +36,8 @@
   width: 60%;
   margin-left: 0.3em;
 }
+
+.cta {
+  display: flex;
+  gap: 16px;
+}

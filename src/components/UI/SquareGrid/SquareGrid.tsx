@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import styles from "./style.module.css";
 import SquareRow from "../SquareRow/SquareRow";
 import Scanner from "../Scanner/Scanner";
@@ -11,6 +11,7 @@ gsap.registerPlugin(useGSAP);
 interface SquareGridProps {}
 
 const SquareGrid: React.FC<SquareGridProps> = ({}) => {
+  const [isStreamDetected, setIsStreamDetected] = useState<boolean>(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const timeline = useRef<GSAPTimeline | null>(null);
   useGSAP(
@@ -27,7 +28,8 @@ const SquareGrid: React.FC<SquareGridProps> = ({}) => {
         {
           color: "var(--red)",
           duration: 0.25,
-          delay: 7.4,
+          delay: 7,
+          onComplete: () => setIsStreamDetected(true),
         },
         "<"
       );
@@ -50,6 +52,7 @@ const SquareGrid: React.FC<SquareGridProps> = ({}) => {
         7.7
       );
       timeline.current.to(".js-scanner", { opacity: 0 });
+      timeline.current.timeScale(1.5);
       timeline.current.play();
     },
     { scope: containerRef }
@@ -74,7 +77,8 @@ const SquareGrid: React.FC<SquareGridProps> = ({}) => {
       <SquareRow />
       {/* row with detected pirate stream */}
       <SquareRow
-        streams={[{ type: "ilegal", position: 18, class: "js-stream-illegal" }]}
+        isDetected={isStreamDetected}
+        streams={[{ type: "ilegal", position: 17, class: "js-stream-illegal" }]}
       />
       {/* central row */}
       <SquareRow />

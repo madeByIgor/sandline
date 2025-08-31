@@ -1,9 +1,30 @@
 .wrapper {
-  padding: 18px 32px;
-  background-color: var(--sand);
-  color: var(--white);
   border-radius: 64px;
   font-size: 14px;
   cursor: pointer;
   text-decoration: none;
+  text-align: center;
+}
+
+.size-m {
+  padding: 11px 24px;
+}
+.size-l {
+  padding: 18px 32px;
+}
+
+.variant-primary {
+  background-color: var(--sand);
+  color: var(--white);
+}
+.variant-secondary {
+  background-color: var(--white);
+  color: var(--textblack);
+  border: 1px solid var(--gridline);
+}
+
+.variant-transparent {
+  background-color: transparent;
+  color: var(--textwhite);
+  padding: 0 16px;
 }

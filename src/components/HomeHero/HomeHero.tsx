@@ -21,7 +21,8 @@ const HomeHero: React.FC<HomeHeroProps> = ({}) => {
             disrupting digital piracy — at scale, in real time.
           </p>
           <div className={`${styles.cta}`}>
-            <Button>Book a call</Button>
+            <Button variant="secondary">Book a call</Button>
+            <Button>How it works</Button>
           </div>
         </div>
       </div>
