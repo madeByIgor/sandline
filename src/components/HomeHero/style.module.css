@@ -4,7 +4,7 @@
 
 .inner {
   height: 100vh;
-  max-width: 1380px;
+  max-width: 1300px;
   margin: 0 auto;
   display: flex;
   justify-content: flex-start;
@@ -40,4 +40,33 @@
 .cta {
   display: flex;
   gap: 16px;
+}
+
+.skullWrapper {
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.skullInner {
+  --size: 24vw;
+  width: var(--size);
+  height: var(--size);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.skullInner img {
+  --size: 75%;
+  width: var(--size);
+  height: var(--size);
+  display: block;
+  position: absolute;
+  object-fit: contain;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
 }

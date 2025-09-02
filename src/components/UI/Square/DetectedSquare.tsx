@@ -2,8 +2,9 @@ import React, { useRef, type Dispatch, type SetStateAction } from "react";
 import styles from "./style.module.css";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
-import { ScrambleTextPlugin, TextPlugin } from "gsap/all";
-gsap.registerPlugin(ScrambleTextPlugin, TextPlugin);
+import { Flip, ScrambleTextPlugin, TextPlugin } from "gsap/all";
+import { useGlobalContext } from "../../../context/GlobalContext";
+gsap.registerPlugin(ScrambleTextPlugin, TextPlugin, Flip);
 interface DetectedSquareProps {
   setIsIllegalStream: Dispatch<SetStateAction<boolean>>;
 }
@@ -12,6 +13,7 @@ const DetectedSquare: React.FC<DetectedSquareProps> = ({
   setIsIllegalStream,
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
+  const { squareGridRef, skullTargetSlotRef } = useGlobalContext();
   useGSAP(
     () => {
       const tl = gsap.timeline({ paused: true });
@@ -34,20 +36,30 @@ const DetectedSquare: React.FC<DetectedSquareProps> = ({
           duration: 1,
           delay: 1,
           scrambleText: {
-            text: "Illegal stream detected",
+            text: "",
             speed: 1,
           },
           onComplete: () => {
             setIsIllegalStream(true);
+            Flip.fit(squareGridRef.current, skullTargetSlotRef.current, {
+              ease: "power1.inOut",
+              fitChild: `.js-stream-illegal`,
+              duration: 2,
+            });
           },
-        });
+        })
+        .to(
+          ".js-detected-tag-wrapper",
+          { opacity: 0, duration: 0.25 },
+          "-=0.6"
+        );
       tl.play();
     },
-    { scope: containerRef }
+    { scope: squareGridRef }
   );
   return (
     <div ref={containerRef}>
-      <div className={styles.detectedTag}>
+      <div className={`${styles.detectedTag} js-detected-tag-wrapper`}>
         <div className={`${styles.detectedText} js-detected-tag`}></div>
       </div>
     </div>

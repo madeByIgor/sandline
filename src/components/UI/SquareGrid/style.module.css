@@ -3,7 +3,6 @@
   flex-direction: column;
   justify-content: center;
   gap: 1px;
-
   background: var(--gridline);
   position: fixed;
   width: 100%;

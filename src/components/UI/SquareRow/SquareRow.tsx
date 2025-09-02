@@ -13,7 +13,6 @@ const SquareRow: React.FC<SquareRowProps> = ({
   streams,
   isDetected,
 }) => {
-  console.log(streams);
   return (
     <div className={`${styles.row}`} style={{ backgroundColor: color }}>
       {new Array(25).fill(0).map((_, i) => {

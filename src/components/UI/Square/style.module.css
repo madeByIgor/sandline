@@ -55,12 +55,16 @@
   font-size: 10px;
   background: var(--red);
   color: var(--white);
-  padding: 4px 8px;
+  height: 23px;
+  align-content: center;
   text-transform: uppercase;
   font-weight: bold;
   white-space: nowrap;
+  padding: 0 8px;
 }
 
+.detectedText {
+}
 .circleInner {
   display: flex;
   flex-direction: column;

@@ -1,10 +1,13 @@
 import React from "react";
 import styles from "./style.module.css";
 import Button from "../UI/Button/Button";
+import { useGlobalContext } from "../../context/GlobalContext";
+import HomeHeroSkull from "./HomeHeroSkull";
 
 interface HomeHeroProps {}
 
 const HomeHero: React.FC<HomeHeroProps> = ({}) => {
+  const { skullTargetSlotRef, isIllegalStream } = useGlobalContext();
   return (
     <section className={`${styles.wrapper}`}>
       <div className={`${styles.inner}`}>
@@ -23,6 +26,14 @@ const HomeHero: React.FC<HomeHeroProps> = ({}) => {
           <div className={`${styles.cta}`}>
             <Button variant="secondary">Book a call</Button>
             <Button>How it works</Button>
+          </div>
+        </div>
+        <div className={`${styles.skullWrapper}`}>
+          <div
+            ref={skullTargetSlotRef}
+            className={`${styles.skullInner} js-skull-hero`}
+          >
+            {isIllegalStream && <HomeHeroSkull />}
           </div>
         </div>
       </div>

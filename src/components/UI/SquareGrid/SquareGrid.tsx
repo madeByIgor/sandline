@@ -5,8 +5,10 @@ import Scanner from "../Scanner/Scanner";
 import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
 import StreamAnimation from "./StreamAnimation";
+import { Flip } from "gsap/all";
+import { useGlobalContext } from "../../../context/GlobalContext";
 
-gsap.registerPlugin(useGSAP);
+gsap.registerPlugin(useGSAP, Flip);
 
 interface SquareGridProps {}
 
@@ -14,6 +16,8 @@ const SquareGrid: React.FC<SquareGridProps> = ({}) => {
   const [isStreamDetected, setIsStreamDetected] = useState<boolean>(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const timeline = useRef<GSAPTimeline | null>(null);
+  const { squareGridRef } = useGlobalContext();
+
   useGSAP(
     () => {
       const deviceWidth = window.innerWidth;
@@ -28,7 +32,7 @@ const SquareGrid: React.FC<SquareGridProps> = ({}) => {
         {
           color: "var(--red)",
           duration: 0.25,
-          delay: 7,
+          delay: 1,
           onComplete: () => setIsStreamDetected(true),
         },
         "<"
@@ -52,13 +56,27 @@ const SquareGrid: React.FC<SquareGridProps> = ({}) => {
         7.7
       );
       timeline.current.to(".js-scanner", { opacity: 0 });
+
+      // timeline.current.add(
+      //   Flip.fit(containerRef.current, skullTargetSlotRef.current, {
+      //     ease: "power1.inOut",
+      //     fitChild: ".js-stream-illegal",
+      //     duration: 2,
+      //   })
+      // );
       timeline.current.timeScale(1.5);
       timeline.current.play();
     },
-    { scope: containerRef }
+    { scope: squareGridRef }
   );
+
+  function handleClick() {}
   return (
-    <div ref={containerRef} className={`${styles.grid} js-square-grid`}>
+    <div
+      ref={squareGridRef}
+      className={`${styles.grid} js-square-grid`}
+      onClick={handleClick}
+    >
       <Scanner />
       {/*  */}
       {/*  */}
