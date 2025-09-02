@@ -32,7 +32,7 @@ const SquareGrid: React.FC<SquareGridProps> = ({}) => {
         {
           color: "var(--red)",
           duration: 0.25,
-          delay: 1,
+          delay: 7,
           onComplete: () => setIsStreamDetected(true),
         },
         "<"
