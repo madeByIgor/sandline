@@ -1,192 +1,219 @@
-import React, { useRef } from "react";
-import skullImg from "../../assets/images/svg/skull-hero-section.svg";
+import React, { useRef, useState } from "react";
 import { useGlobalContext } from "../../context/GlobalContext";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
+import styles from "./style.module.css";
+import Corner from "../UI/Corner/Corner";
+import TagInfo from "../UI/TagInfo/TagInfo";
+import Scanner from "../UI/Scanner/Scanner";
+import HomeHeroSkullSvg from "./HomeHeroSkullSvg";
+import HomeHeroShieldSvg from "./HomeHeroShieldSvg";
+import { Flip } from "gsap/all";
 interface HomeHeroSkullProps {}
 
 const HomeHeroSkull: React.FC<HomeHeroSkullProps> = ({}) => {
-  const { isIllegalStream } = useGlobalContext();
+  const { skullTargetSlotRef, squareGridRef, illegalSquarePosition } =
+    useGlobalContext();
   const tl = useRef<GSAPTimeline | null>(null);
-  useGSAP(() => {
-    gsap.set(".js-hero-skull-img-wrap", {
-      opacity: 0,
-      // scale: 0.95,
-    });
-
-    tl.current = gsap.timeline();
-    tl.current
-      .to(".js-hero-skull-img-wrap", {
-        opacity: 1,
-        delay: 1.5,
-      })
-      .to(".svg path", {
-        duration: 3,
-        y: 500,
-        ease: "power3.out",
-        stagger: {
-          from: "random",
-          amount: 0.3,
-        },
+  const skullRectangleRef = useRef<HTMLDivElement | null>(null);
+  const [heroAniDone, setHeroAniDone] = useState(false);
+  useGSAP(
+    () => {
+      if (!skullRectangleRef.current) return;
+      const skullRectangleWidth = skullRectangleRef.current.offsetWidth;
+      gsap.set(".hero-svg-shield", {
+        opacity: 0,
+        scale: 0.9,
       });
-  });
+      gsap.set(".js-hero-skull-img-wrap .svg-top path", {
+        transformOrigin: "50% 50%",
+      });
+      gsap.set(
+        ".js-hero-skull-img-wrap, .js-tag, .js-circle-lines, .js-circle-dots",
+        {
+          opacity: 0,
+        }
+      );
+      gsap.to(".js-circle-lines", {
+        rotate: 360,
+        duration: 20,
+        repeat: -1,
+        ease: "linear",
+      });
+      gsap.to(".js-circle-dots", {
+        rotate: -360,
+        duration: 30,
+        repeat: -1,
+        ease: "linear",
+      });
+      gsap.set(".js-scanner", {
+        scaleY: 0,
+      });
+
+      tl.current = gsap.timeline();
+      tl.current
+        .to(".js-corner", {
+          "--size": "40px",
+          delay: 1.5,
+          duration: 0.6,
+          stagger: 0.1,
+        })
+        .to(
+          ".js-circle-lines, .js-circle-dots",
+          {
+            opacity: 1,
+            stagger: 0.3,
+          },
+          "-=0.8"
+        )
+        .to(
+          ".js-hero-skull-img-wrap",
+          {
+            opacity: 1,
+          },
+          "-=0.5"
+        )
+        .set(
+          ".js-tag",
+          {
+            opacity: 1,
+          },
+          "-=1"
+        )
+        .to(
+          ".js-tag",
+          {
+            duration: 1,
+            scrambleText: {
+              text: "Running deep scan",
+            },
+          },
+          "<"
+        )
+        .to(".js-scanner", {
+          scaleY: 1,
+          duration: 0.6,
+        })
+        .to(".js-scanner", {
+          x: skullRectangleWidth,
+          duration: 1.25,
+          onComplete: () => {
+            gsap.to(".js-scanner", { opacity: 0, duration: 0.25 });
+            gsap.to(".js-hero-skull-img-wrap svg path", {
+              fill: "var(--red)",
+            });
+          },
+        })
+        .set(
+          ".js-tag",
+          {
+            "--bg": "var(--red)",
+          },
+          "-=0.2"
+        )
+        .to(
+          ".js-tag",
+          {
+            duration: 1,
+            scrambleText: {
+              text: "Illegal stream detected",
+            },
+          },
+          "<"
+        )
+        .to(".js-hero-skull-img-wrap path", {
+          delay: 0.5,
+          duration: 1,
+          y: gsap.utils.random(250, 450, 25, true),
+          rotate: gsap.utils.random(-8, 8, 1, true),
+          opacity: 0,
+        })
+        .to(".hero-svg-shield", {
+          opacity: 1,
+          scale: 1,
+        })
+        .set(
+          ".js-tag",
+          {
+            "--bg": "var(--green)",
+          },
+          "-=0.2"
+        )
+        .to(
+          ".js-tag",
+          {
+            duration: 1,
+            scrambleText: {
+              text: "Illegal stream taken down",
+            },
+          },
+          "<"
+        )
+        .to(".js-tag", {
+          delay: 1.5,
+          scrambleText: {
+            text: "X",
+          },
+        })
+        .set(".js-tag", {
+          opacity: 0,
+        })
+        .to(".js-corner", {
+          "--size": "0px",
+        })
+        .to(".js-circle-dots, .js-circle-lines, .hero-svg-shield", {
+          opacity: 0,
+          scale: 0.5,
+          stagger: 0.1,
+        })
+        .to(squareGridRef.current, {
+          x: 0,
+          y: 0,
+          scale: 1,
+          width: "",
+          height: "",
+          duration: 1,
+          ease: "expo.out",
+          onComplete: () => {
+            gsap.set(".js-stream-illegal", { clearProps: "all" });
+            setHeroAniDone(true);
+          },
+        });
+    },
+    { scope: skullTargetSlotRef }
+  );
+
+  useGSAP(
+    () => {
+      if (!heroAniDone) return;
+      gsap.to(".js-circle", { opacity: 1, scale: 1 });
+    },
+    { scope: squareGridRef, dependencies: [heroAniDone] }
+  );
   return (
-    <div className={`js-hero-skull-img-wrap`}>
-      {isIllegalStream && (
-        <svg
-          className="svg"
-          width="256"
-          height="331"
-          viewBox="0 0 256 331"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M32.3231 102.743C33.9186 81.3172 33.6238 62.9088 33.5284 41.5869C19.9324 50.0411 26.2188 102.57 26.8692 127.273C27.3374 135.528 27.9877 147.901 29.0543 156.668C35.6355 148.569 31.4647 114.31 32.3231 102.743Z"
-            fill="#CFB58B"
-          />
-          <path
-            d="M48.7107 35.0837C47.228 28.9707 47.0545 30.2539 45.1383 28.1035C37.2737 39.1763 40.5514 67.4436 40.5514 83.6149C40.5514 98.5896 39.5282 150.424 45.1383 159.468C47.5488 133.395 49.1876 86.2769 49.6385 60.7409L48.7107 35.0837Z"
-            fill="#CFB58B"
-          />
-          <path
-            d="M62.1331 165.027C62.1331 130.195 67.7346 53.2756 61.2227 17.5166C52.8553 24.2539 56.5144 25.5199 56.237 51.446C56.4624 82.9475 51.7107 146.384 62.1331 165.027Z"
-            fill="#CFB58B"
-          />
-          <path
-            d="M77.2994 9.96387C83.1436 59.3449 72.912 109.584 77.1868 159.373C68.1083 154.968 64.0762 21.4875 77.2994 9.96387Z"
-            fill="#CFB58B"
-          />
-          <path
-            d="M88.797 163.691C93.3406 142.855 99.2802 25.5283 91.1382 4.44922L85.0859 6.5997C87.956 33.679 82.2158 150.242 88.797 163.691Z"
-            fill="#CFB58B"
-          />
-          <path
-            d="M108.982 99.7433C106.728 74.3114 108.783 49.6426 107.031 24.6183L107.179 1.62305L100.433 4.4411C100.433 34.1477 97.6667 160.284 104.699 178.042C109.711 168.044 109.754 108.336 108.982 99.7433Z"
-            fill="#CFB58B"
-          />
-          <path
-            d="M121.53 50.8135C120.845 41.8217 127.227 -2.10526 117.316 0.539378C109 12.0631 117.602 160.336 115.902 187.034C114.081 215.544 115.902 209.908 120.966 209.908C122.995 209.908 122.961 202.407 122.995 198.592C123.342 149.766 125.258 99.5008 121.53 50.8135Z"
-            fill="#CFB58B"
-          />
-          <path
-            d="M137.77 0.539646C129.697 0.539646 130.434 -3.24962 131.154 9.25388C131.154 76.0808 130.235 143.003 130.608 209.778C137.536 208.972 139.287 215.353 137.64 189.653C135.281 152.992 138.281 94.5673 137.77 51.4467C137.64 40.2005 139.556 11.3957 137.77 0.539646Z"
-            fill="#CFB58B"
-          />
-          <path
-            d="M152.684 16.8149C153.127 1.64941 146.233 1.64941 146.233 1.64941C146.233 46.9724 140.614 133.526 146.988 172.918C147.092 173.542 147.282 174.218 147.395 174.747C147.499 175.25 147.82 176.048 147.924 176.438C148.019 176.811 148.262 177.531 148.514 178.042C153.404 165.686 152.528 111.528 153.118 92.8937L153.127 78.0838L152.684 16.8149Z"
-            fill="#CFB58B"
-          />
-          <path
-            d="M167.633 21.4716C168.092 7.45066 170.936 6.87844 160.288 4.40723C160.167 51.9847 154.912 116.618 164.615 163.718C170.52 151.709 166.722 49.3226 167.633 21.4716Z"
-            fill="#CFB58B"
-          />
-          <path
-            d="M182.711 60.638C182.087 32.0239 186.813 13.0953 176.104 10.0518C169.8 40.6602 174.092 120.398 178.402 159.79C185.009 149.385 181.601 127.387 182.911 115.031C181.705 98.5039 183.084 77.9885 182.711 60.638Z"
-            fill="#CFB58B"
-          />
-          <path
-            d="M197.21 30.5929C196.976 19.0085 198.831 22.2254 192.189 17.4824C191.929 17.8986 191.548 18.0721 191.487 18.7917L189.657 32.9861C187.628 70.774 186.709 125.696 196.152 163.987L197.149 49.1487C197.08 43.0357 197.34 36.5932 197.21 30.5929Z"
-            fill="#CFB58B"
-          />
-          <path
-            d="M211.403 130.048C212.106 112.004 216.788 39.9139 208.273 28.1475C199.073 53.5273 208.273 131.756 206.452 159.694C214.239 155.333 210.51 152.775 211.403 130.048Z"
-            fill="#CFB58B"
-          />
-          <path
-            d="M227.567 157.25C221.228 127.5 234.894 54.9325 222.061 42.377L220.405 94.706C221.168 106.984 215.774 153.851 227.567 157.25Z"
-            fill="#CFB58B"
-          />
-          <path
-            d="M240.963 145.639C241.475 118.846 246.903 89.0002 234.651 63.8545C233.593 99.4834 238.431 133.794 236.81 170.507C242.871 162.322 240.27 157.301 240.963 145.639Z"
-            fill="#CFB58B"
-          />
-          <path
-            d="M103.373 214.998C105.462 199.199 113.249 212.128 106.91 223.998C106.598 223.591 102.341 222.776 103.373 214.998Z"
-            fill="#CFB58B"
-          />
-          <path
-            d="M149.017 223.998C142.678 212.128 150.456 199.199 152.555 214.998C153.586 222.776 149.32 223.591 149.017 223.998Z"
-            fill="#CFB58B"
-          />
-          <path
-            d="M4.76541 203.153C5.71488 211.616 6.22212 221.961 2.47368 228.819C-0.473576 219.151 -1.92075 211.816 4.76541 203.153Z"
-            fill="#CFB58B"
-          />
-          <path
-            d="M15.8043 208.226C23.4607 216.038 18.2408 245.467 17.2349 254.112C12.2578 249.508 10.593 215.787 15.8043 208.226Z"
-            fill="#CFB58B"
-          />
-          <path
-            d="M30.2679 225.681C37.9243 233.493 32.6958 262.931 31.6986 271.567C26.7128 266.972 25.0567 233.242 30.2679 225.681Z"
-            fill="#CFB58B"
-          />
-          <path
-            d="M44.7222 237.776C52.3787 245.589 47.1588 275.027 46.1529 283.663C41.1758 279.059 39.511 245.337 44.7222 237.776Z"
-            fill="#CFB58B"
-          />
-          <path
-            d="M59.1847 233.172C66.8411 240.984 61.6124 270.422 60.6153 279.059C55.6295 274.463 53.9648 240.733 59.1847 233.172Z"
-            fill="#CFB58B"
-          />
-          <path
-            d="M73.6392 225.681C81.2956 233.493 76.0758 262.931 75.0699 271.567C70.0928 266.972 68.428 233.242 73.6392 225.681Z"
-            fill="#CFB58B"
-          />
-          <path
-            d="M92.7588 269.798C91.6316 257.476 97.5625 228.169 89.1257 219.55C82.2063 230.605 85.5793 315.971 90.5564 326.705C91.3021 311.765 94.0161 283.533 92.7588 269.798Z"
-            fill="#CFB58B"
-          />
-          <path
-            d="M108.488 274.333C104.733 272.079 104.742 272.607 100.571 274.333L103.797 329.281L108.488 285.805V274.333Z"
-            fill="#CFB58B"
-          />
-          <path
-            d="M115.572 285.805L120.202 330.824L124.061 260.72C110.144 260.72 115.329 274.082 115.572 285.805Z"
-            fill="#CFB58B"
-          />
-          <path
-            d="M138.412 285.805C138.646 274.082 143.831 260.72 129.923 260.72L133.773 330.824L138.412 285.805Z"
-            fill="#CFB58B"
-          />
-          <path
-            d="M151.868 274.333C147.698 272.607 147.707 272.079 143.943 274.333V285.805L148.634 329.281L151.868 274.333Z"
-            fill="#CFB58B"
-          />
-          <path
-            d="M163.678 326.705C168.655 315.971 172.028 230.605 165.109 219.55C156.681 228.169 162.603 257.476 161.476 269.798C160.219 283.533 162.933 311.765 163.678 326.705Z"
-            fill="#CFB58B"
-          />
-          <path
-            d="M181.549 225.681C186.76 233.242 185.096 266.972 180.118 271.567C179.113 262.931 173.893 233.493 181.549 225.681Z"
-            fill="#CFB58B"
-          />
-          <path
-            d="M196.004 233.172C201.215 240.733 199.559 274.463 194.573 279.059C193.576 270.422 188.347 240.984 196.004 233.172Z"
-            fill="#CFB58B"
-          />
-          <path
-            d="M210.467 237.776C215.678 245.337 214.014 279.067 209.036 283.663C208.031 275.027 202.811 245.589 210.467 237.776Z"
-            fill="#CFB58B"
-          />
-          <path
-            d="M224.922 225.681C230.133 233.242 228.468 266.972 223.491 271.567C222.494 262.931 217.265 233.493 224.922 225.681Z"
-            fill="#CFB58B"
-          />
-          <path
-            d="M239.376 208.226C244.596 215.787 242.931 249.508 237.954 254.112C236.948 245.467 231.729 216.038 239.376 208.226Z"
-            fill="#CFB58B"
-          />
-          <path
-            d="M250.422 203.153C257.108 211.816 255.66 219.151 252.712 228.819C248.966 221.961 249.469 211.616 250.422 203.153Z"
-            fill="#CFB58B"
-          />
-          <path
-            d="M18.7355 63.8369C20.0275 101.183 14.903 133.005 16.6632 170.576C9.4316 160.917 11.2958 106.376 10.897 94.5233L10.8623 88.2196C12.6659 79.8348 15.7614 70.0713 18.7355 63.8369Z"
-            fill="#CFB58B"
-          />
-        </svg>
-      )}
+    <div ref={skullTargetSlotRef} className={`${styles.skullInner}`}>
+      <div className={styles.illegalStreamRectangle}>
+        <Corner size={0} />
+        <Corner size={0} position="top-right" />
+        <Corner size={0} position="bottom-left" />
+        <Corner size={0} position="bottom-right" />
+        <TagInfo classNames={`${styles.tag} js-tag`} text="X" />
+      </div>
+
+      <div ref={skullRectangleRef} className={styles.skullRectangle}>
+        <Corner size={0} />
+        <Corner size={0} position="top-right" />
+        <Corner size={0} position="bottom-left" />
+        <Corner size={0} position="bottom-right" />
+        <div className={`${styles.skullCircleDots} js-circle-dots`}></div>
+        <div className={`${styles.skullCircleLines} js-circle-lines`}></div>
+        <Scanner height="100%" />
+        <div className={`js-hero-skull-img-wrap`}>
+          <HomeHeroSkullSvg />
+        </div>
+        <HomeHeroShieldSvg />
+      </div>
+      {/*  */}
     </div>
   );
 };

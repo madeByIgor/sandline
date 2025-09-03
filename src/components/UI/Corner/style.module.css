@@ -1,0 +1,41 @@
+.corner {
+  --size: 30px;
+  width: var(--size);
+  height: var(--size);
+  color: var(--sand);
+  position: absolute;
+}
+
+.line {
+  background-color: currentColor;
+
+  position: absolute;
+}
+.lineVer {
+  width: 1px;
+  height: var(--size);
+}
+.lineHor {
+  width: var(--size);
+  height: 1px;
+}
+
+.top-left {
+  top: 0;
+  left: 0;
+}
+.top-right {
+  top: 0;
+  right: 0;
+  transform: rotate(90deg);
+}
+.bottom-left {
+  bottom: 0;
+  left: 0;
+  transform: rotate(-90deg);
+}
+.bottom-right {
+  bottom: 0;
+  right: 0;
+  transform: rotate(180deg);
+}

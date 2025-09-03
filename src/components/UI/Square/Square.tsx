@@ -4,6 +4,7 @@ import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
 import DetectedSquare from "./DetectedSquare";
 import { useGlobalContext } from "../../../context/GlobalContext";
+import { Flip } from "gsap/all";
 
 gsap.registerPlugin(useGSAP);
 interface SquareProps {
@@ -14,6 +15,7 @@ interface SquareProps {
 }
 
 const Square: React.FC<SquareProps> = ({ index, stream, isDetected }) => {
+  const { illegalSquarePosition } = useGlobalContext();
   const containerRef = useRef<HTMLDivElement>(null);
   const timeline = useRef<GSAPTimeline | null>(null);
   // const [isIllegalStream, setIsIllegalStream] = useState<boolean>(false);
@@ -22,7 +24,6 @@ const Square: React.FC<SquareProps> = ({ index, stream, isDetected }) => {
     () => {
       if (!stream?.type) return;
       gsap.set(".js-pulsing-circle", { scale: 0, transformOrigin: "50% 50%" });
-
       timeline.current = gsap
         .timeline({ repeat: -1 })
         .to(".js-pulsing-circle", {
@@ -36,6 +37,11 @@ const Square: React.FC<SquareProps> = ({ index, stream, isDetected }) => {
           ease: "power1.out",
           duration: 0.25,
         });
+
+      if (stream?.type === "ilegal") {
+        console.log("works");
+        illegalSquarePosition.current = Flip.getState(containerRef.current);
+      }
     },
     { scope: containerRef }
   );
@@ -47,8 +53,10 @@ const Square: React.FC<SquareProps> = ({ index, stream, isDetected }) => {
 
       timeline.current.kill();
       timeline.current = gsap.timeline();
-      timeline.current.to(".js-pulsing-circle", { opacity: 0 });
-      timeline.current.to(".js-circle", { opacity: 0 });
+      timeline.current
+        .to(".js-pulsing-circle", { opacity: 0 })
+        .to(".js-circle", { opacity: 0, scale: 0.4 }),
+        "<";
     },
     { scope: containerRef, dependencies: [isIllegalStream] }
   );

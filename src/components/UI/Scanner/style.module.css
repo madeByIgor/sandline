@@ -1,6 +1,7 @@
 .wrapper {
-  width: 80px;
-  height: 100vh;
+  --height: 100vh;
+  width: 81px;
+  height: var(--height);
   position: absolute;
   left: -80px;
   top: 50%;

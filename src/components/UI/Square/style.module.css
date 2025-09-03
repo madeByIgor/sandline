@@ -63,8 +63,6 @@
   padding: 0 8px;
 }
 
-.detectedText {
-}
 .circleInner {
   display: flex;
   flex-direction: column;

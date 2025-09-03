@@ -13,7 +13,7 @@ const DetectedSquare: React.FC<DetectedSquareProps> = ({
   setIsIllegalStream,
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const { squareGridRef, skullTargetSlotRef } = useGlobalContext();
+  const { squareGridRef, squareFullScreenRef } = useGlobalContext();
   useGSAP(
     () => {
       const tl = gsap.timeline({ paused: true });
@@ -41,17 +41,17 @@ const DetectedSquare: React.FC<DetectedSquareProps> = ({
           },
           onComplete: () => {
             setIsIllegalStream(true);
-            Flip.fit(squareGridRef.current, skullTargetSlotRef.current, {
+            Flip.fit(squareGridRef.current, squareFullScreenRef.current, {
               ease: "power1.inOut",
               fitChild: `.js-stream-illegal`,
               duration: 2,
             });
           },
         })
-        .to(
+        .set(
           ".js-detected-tag-wrapper",
           { opacity: 0, duration: 0.25 },
-          "-=0.6"
+          "-=0.7"
         );
       tl.play();
     },

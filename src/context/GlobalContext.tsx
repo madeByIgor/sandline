@@ -7,6 +7,8 @@ const GlobalContext = createContext<undefined>(undefined);
 const GlobalProvider: React.FC<GlobalContextProps> = ({ children }) => {
   const skullTargetSlotRef = useRef<HTMLDivElement>(null);
   const squareGridRef = useRef<HTMLDivElement>(null);
+  const squareFullScreenRef = useRef<HTMLDivElement>(null);
+  const illegalSquarePosition = useRef(null);
   const [isIllegalStream, setIsIllegalStream] = useState<boolean>(false);
 
   return (
@@ -16,6 +18,8 @@ const GlobalProvider: React.FC<GlobalContextProps> = ({ children }) => {
         skullTargetSlotRef,
         isIllegalStream,
         setIsIllegalStream,
+        squareFullScreenRef,
+        illegalSquarePosition,
       }}
     >
       {children}
