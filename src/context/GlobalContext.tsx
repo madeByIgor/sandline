@@ -1,6 +1,14 @@
-import React, { createContext, useContext, useRef, useState } from "react";
+import React, {
+  createContext,
+  useContext,
+  useRef,
+  useState,
+  type ReactNode,
+} from "react";
 
-interface GlobalContextProps {}
+interface GlobalContextProps {
+  children: ReactNode;
+}
 
 const GlobalContext = createContext<undefined>(undefined);
 
