@@ -1,22 +1,21 @@
-import React, { useRef, useState } from "react";
-import { useGlobalContext } from "../../context/GlobalContext";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
-import styles from "./style.module.css";
+import React, { useRef, useState } from "react";
+import { useGlobalContext } from "../../context/GlobalContext";
 import Corner from "../UI/Corner/Corner";
-import TagInfo from "../UI/TagInfo/TagInfo";
 import Scanner from "../UI/Scanner/Scanner";
-import HomeHeroSkullSvg from "./HomeHeroSkullSvg";
+import TagInfo from "../UI/TagInfo/TagInfo";
 import HomeHeroShieldSvg from "./HomeHeroShieldSvg";
-import { Flip } from "gsap/all";
+import HomeHeroSkullSvg from "./HomeHeroSkullSvg";
+import styles from "./style.module.css";
 interface HomeHeroSkullProps {}
 
 const HomeHeroSkull: React.FC<HomeHeroSkullProps> = ({}) => {
-  const { skullTargetSlotRef, squareGridRef, illegalSquarePosition } =
+  const { skullTargetSlotRef, squareGridRef, heroAniDone, setHeroAniDone } =
     useGlobalContext();
   const tl = useRef<GSAPTimeline | null>(null);
   const skullRectangleRef = useRef<HTMLDivElement | null>(null);
-  const [heroAniDone, setHeroAniDone] = useState(false);
+
   useGSAP(
     () => {
       if (!skullRectangleRef.current) return;
@@ -95,7 +94,7 @@ const HomeHeroSkull: React.FC<HomeHeroSkullProps> = ({}) => {
           duration: 0.6,
         })
         .to(".js-scanner", {
-          x: skullRectangleWidth,
+          x: skullRectangleWidth - 1,
           duration: 1.25,
           onComplete: () => {
             gsap.to(".js-scanner", { opacity: 0, duration: 0.25 });
@@ -173,9 +172,9 @@ const HomeHeroSkull: React.FC<HomeHeroSkullProps> = ({}) => {
           width: "",
           height: "",
           duration: 1,
+          backgroundColor: "#efeae1",
           ease: "expo.out",
           onComplete: () => {
-            gsap.set(".js-stream-illegal", { clearProps: "all" });
             setHeroAniDone(true);
           },
         });
@@ -186,7 +185,29 @@ const HomeHeroSkull: React.FC<HomeHeroSkullProps> = ({}) => {
   useGSAP(
     () => {
       if (!heroAniDone) return;
+
+      gsap.set(".js-pulsing-circle", {
+        scale: 0,
+        transformOrigin: "50% 50%",
+        opacity: 0.16,
+      });
       gsap.to(".js-circle", { opacity: 1, scale: 1 });
+      gsap.to(squareGridRef.current, {
+        duration: 0.5,
+      });
+      gsap
+        .timeline({ repeat: -1 })
+        .to(".js-pulsing-circle", {
+          scale: 0.6,
+          duration: 1,
+          ease: "power1.out",
+        })
+        .to(".js-pulsing-circle", {
+          scale: 0.8,
+          opacity: 0,
+          ease: "power1.out",
+          duration: 0.25,
+        });
     },
     { scope: squareGridRef, dependencies: [heroAniDone] }
   );

@@ -46,6 +46,10 @@ const DetectedSquare: React.FC<DetectedSquareProps> = ({
               fitChild: `.js-stream-illegal`,
               duration: 2,
             });
+            gsap.to(squareGridRef.current, {
+              backgroundColor: "#f5f5f4",
+              duration: 2,
+            });
           },
         })
         .set(

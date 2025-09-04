@@ -18,7 +18,7 @@ const GlobalProvider: React.FC<GlobalContextProps> = ({ children }) => {
   const squareFullScreenRef = useRef<HTMLDivElement>(null);
   const illegalSquarePosition = useRef(null);
   const [isIllegalStream, setIsIllegalStream] = useState<boolean>(false);
-
+  const [heroAniDone, setHeroAniDone] = useState(false);
   return (
     <GlobalContext
       value={{
@@ -28,6 +28,8 @@ const GlobalProvider: React.FC<GlobalContextProps> = ({ children }) => {
         setIsIllegalStream,
         squareFullScreenRef,
         illegalSquarePosition,
+        heroAniDone,
+        setHeroAniDone,
       }}
     >
       {children}

@@ -32,7 +32,7 @@ const SquareGrid: React.FC<SquareGridProps> = ({}) => {
         {
           color: "var(--red)",
           duration: 0.25,
-          delay: 7,
+          // delay: 7,
           onComplete: () => setIsStreamDetected(true),
         },
         "<"
@@ -89,7 +89,9 @@ const SquareGrid: React.FC<SquareGridProps> = ({}) => {
       {/* row with detected pirate stream */}
       <SquareRow
         isDetected={isStreamDetected}
-        streams={[{ type: "ilegal", position: 17, class: "js-stream-illegal" }]}
+        streams={[
+          { type: "illegal", position: 17, class: "js-stream-illegal" },
+        ]}
       />
       {/* central row */}
       <SquareRow />

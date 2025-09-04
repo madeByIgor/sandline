@@ -1,6 +1,7 @@
 .wrapper {
   position: relative;
   background: var(--bg);
+  border-radius: 2px;
 }
 
 .n {
@@ -80,4 +81,41 @@
   & > p:nth-child(2) {
     font-weight: 500;
   }
+}
+
+.defendedSquare {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  position: relative;
+  img {
+    width: 50%;
+  }
+}
+
+.defendedInfoWrap {
+  padding: 16px;
+  position: absolute;
+  /* background-color: rgba(255, 255, 255, 0.1); */
+  backdrop-filter: blur(2px);
+  transform: translateX(-100%);
+  left: 5px;
+  text-transform: uppercase;
+}
+
+.defendedInfoRow {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  white-space: nowrap;
+  gap: 32px;
+}
+
+.defendedInfoTitle {
+  font-weight: 500;
+  text-align: center;
+  font-size: 11px;
+  margin-bottom: 10px;
+  color: var(--sand);
 }
