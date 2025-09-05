@@ -5,7 +5,7 @@ interface ScannerProps {
   height?: string;
 }
 
-const Scanner: React.FC<ScannerProps> = ({ height = "100vh" }) => {
+const Scanner: React.FC<ScannerProps> = ({ height }) => {
   return (
     <div className={`${styles.wrapper} js-scanner`} style={{ height: height }}>
       <div className={styles.line} />

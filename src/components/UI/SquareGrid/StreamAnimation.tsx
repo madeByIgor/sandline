@@ -7,7 +7,7 @@ interface StreamAnimationProps {
 export default function StreamAnimation({ className }: StreamAnimationProps) {
   const tl = gsap.timeline();
   tl.to(`.${className}`, {
-    color: "var(--green)",
+    color: "#62b762",
     duration: 0.25,
   }).to(
     `.${className} .js-circle`,

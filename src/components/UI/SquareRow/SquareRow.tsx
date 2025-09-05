@@ -1,10 +1,10 @@
 import React from "react";
 import styles from "./style.module.css";
 import Square from "../Square/Square";
-
+import type { StreamType } from "../Square/Square";
 interface SquareRowProps {
   color?: string;
-  streams?: object;
+  streams?: StreamType[];
   isDetected?: boolean;
 }
 

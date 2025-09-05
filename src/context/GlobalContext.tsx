@@ -3,22 +3,35 @@ import React, {
   useContext,
   useRef,
   useState,
+  type Dispatch,
   type ReactNode,
+  type SetStateAction,
+  type RefObject,
 } from "react";
 
-interface GlobalContextProps {
+interface GlobalContextValues {
+  squareGridRef: RefObject<HTMLDivElement | null>;
+  skullTargetSlotRef: RefObject<HTMLDivElement | null>;
+  squareFullScreenRef: RefObject<HTMLDivElement | null>;
+  isIllegalStream: boolean;
+  setIsIllegalStream: Dispatch<SetStateAction<boolean>>;
+  heroAniDone: boolean;
+  setHeroAniDone: Dispatch<SetStateAction<boolean>>;
+}
+
+interface GlobalProviderProps {
   children: ReactNode;
 }
 
-const GlobalContext = createContext<undefined>(undefined);
+const GlobalContext = createContext<GlobalContextValues | undefined>(undefined);
 
-const GlobalProvider: React.FC<GlobalContextProps> = ({ children }) => {
-  const skullTargetSlotRef = useRef<HTMLDivElement>(null);
-  const squareGridRef = useRef<HTMLDivElement>(null);
-  const squareFullScreenRef = useRef<HTMLDivElement>(null);
-  const illegalSquarePosition = useRef(null);
-  const [isIllegalStream, setIsIllegalStream] = useState<boolean>(false);
+const GlobalProvider: React.FC<GlobalProviderProps> = ({ children }) => {
+  const skullTargetSlotRef = useRef(null);
+  const squareGridRef = useRef(null);
+  const squareFullScreenRef = useRef(null);
+  const [isIllegalStream, setIsIllegalStream] = useState(false);
   const [heroAniDone, setHeroAniDone] = useState(false);
+
   return (
     <GlobalContext
       value={{
@@ -27,7 +40,6 @@ const GlobalProvider: React.FC<GlobalContextProps> = ({ children }) => {
         isIllegalStream,
         setIsIllegalStream,
         squareFullScreenRef,
-        illegalSquarePosition,
         heroAniDone,
         setHeroAniDone,
       }}

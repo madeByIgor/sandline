@@ -22,3 +22,12 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+
+# TO DO
+# - Types. I need to add all proper types.
+# - Add hover animation on legal and illegal square streams after main animation is done
+# - Check most proper way to do media screen sizes so there is one source of true in css and in JS
+# - Performance optimisation - sometimes animations run under 60fps
+# - Refactor animations so they get recalculated on window resize
+# - Is there a way to add all animations to single timeline?

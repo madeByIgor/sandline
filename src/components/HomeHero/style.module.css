@@ -1,5 +1,8 @@
 .wrapper {
   width: 100%;
+  padding: 0 40px;
+  z-index: 2;
+  position: relative;
 }
 
 .squareFullScreen {
@@ -14,7 +17,7 @@
 }
 .inner {
   height: 100vh;
-  max-width: 1300px;
+  max-width: 1800px;
   margin: 0 auto;
   display: flex;
   justify-content: flex-start;
@@ -37,6 +40,17 @@
   line-height: 1.2em;
   & > span {
     color: var(--sand);
+  }
+}
+
+@media screen and (min-width: 1600px) {
+  .heading {
+    font-size: 80px;
+  }
+}
+@media screen and (min-width: 2000px) {
+  .heading {
+    font-size: 100px;
   }
 }
 

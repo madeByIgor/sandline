@@ -1,6 +1,6 @@
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
-import React, { useRef, useState } from "react";
+import React, { useRef } from "react";
 import { useGlobalContext } from "../../context/GlobalContext";
 import Corner from "../UI/Corner/Corner";
 import Scanner from "../UI/Scanner/Scanner";
@@ -121,12 +121,19 @@ const HomeHeroSkull: React.FC<HomeHeroSkullProps> = ({}) => {
           "<"
         )
         .to(".js-hero-skull-img-wrap path", {
-          delay: 0.5,
-          duration: 1,
-          y: gsap.utils.random(250, 450, 25, true),
-          rotate: gsap.utils.random(-8, 8, 1, true),
-          opacity: 0,
+          delay: 0.3,
+          duration: 1.5,
+          y: gsap.utils.random(400, 650, 25, true),
+          rotate: gsap.utils.random(-12, 12, 1, true),
         })
+        .to(
+          ".js-hero-skull-img-wrap path",
+          {
+            opacity: 0,
+            duration: 0.3,
+          },
+          "-=0.4"
+        )
         .to(".hero-svg-shield", {
           opacity: 1,
           scale: 1,

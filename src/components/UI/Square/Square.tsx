@@ -5,12 +5,18 @@ import { useGlobalContext } from "../../../context/GlobalContext";
 import DetectedSquare from "./DetectedSquare";
 import styles from "./style.module.css";
 import DefendedSquare from "./DefendedSquare";
-
 gsap.registerPlugin(useGSAP);
+
+export interface StreamType {
+  type: "legal" | "illegal";
+  position: number;
+  class?: string;
+}
+
 interface SquareProps {
   index: number;
   type?: string;
-  stream?: object;
+  stream?: StreamType;
   isDetected?: boolean;
 }
 
@@ -49,8 +55,7 @@ const Square: React.FC<SquareProps> = ({ stream, isDetected }) => {
       timeline.current = gsap.timeline();
       timeline.current
         .to(".js-pulsing-circle", { opacity: 0 })
-        .to(".js-circle", { opacity: 0, scale: 0.4 }),
-        "<";
+        .to(".js-circle", { opacity: 0, scale: 0.4 });
     },
     { scope: containerRef, dependencies: [isIllegalStream] }
   );

@@ -1,22 +1,22 @@
-import { useGSAP } from "@gsap/react";
+// import { useGSAP } from "@gsap/react";
 import img from "../../../assets/images/svg/logo-shield-svg.svg";
-import Corner from "../Corner/Corner";
+// import Corner from "../Corner/Corner";
 import styles from "./style.module.css";
 import { useRef } from "react";
-import gsap from "gsap";
+// import gsap from "gsap";
 interface DefendedSquareProps {}
 
 const DefendedSquare: React.FC<DefendedSquareProps> = ({}) => {
   const containerRef = useRef(null);
-  useGSAP(
-    (_, contextSafe) => {
-      // gsap.set();
-      // const onClickGood = contextSafe(() => {
-      //   gsap.to(goodRef.current, { rotation: 180 });
-      // });
-    },
-    { scope: containerRef }
-  );
+  // useGSAP(
+  //   (_, contextSafe) => {
+  //     gsap.set();
+  //     const onClickGood = contextSafe(() => {
+  //       gsap.to(goodRef.current, { rotation: 180 });
+  //     });
+  //   },
+  //   { scope: containerRef }
+  // );
   return (
     <div
       ref={containerRef}

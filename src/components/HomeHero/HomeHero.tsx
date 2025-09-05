@@ -18,11 +18,8 @@ const HomeHero: React.FC<HomeHeroProps> = ({}) => {
         <div className={`${styles.inner}`}>
           <div className={`${styles.content}`}>
             <h1 className={styles.heading}>
-              Meet the{" "}
-              <span className="highlight">
-                digital <br /> privateers
-              </span>{" "}
-              of sandline
+              Sandline. <br />{" "}
+              <span className="highlight">digital privateers.</span>
             </h1>
             <p className={styles.description}>
               Sandline is a full-service solution for detecting, verifying, and
