@@ -7,6 +7,7 @@ import { useGSAP } from "@gsap/react";
 import StreamAnimation from "./StreamAnimation";
 
 import { useGlobalContext } from "../../../context/GlobalContext";
+import Map from "../Map/Map";
 
 gsap.registerPlugin(useGSAP);
 
@@ -32,20 +33,23 @@ const SquareGrid: React.FC<SquareGridProps> = ({}) => {
         {
           color: "var(--red)",
           duration: 0.25,
-          // delay: 7,
+          delay: 7,
           onComplete: () => setIsStreamDetected(true),
         },
         "<"
       );
 
-      timeline.current.add(StreamAnimation({ className: "js-stream-one" }), 1);
+      timeline.current.add(
+        StreamAnimation({ className: "js-stream-one" }),
+        7.8
+      );
       timeline.current.add(
         StreamAnimation({ className: "js-stream-two" }),
-        2.2
+        6.2
       );
       timeline.current.add(
         StreamAnimation({ className: "js-stream-three" }),
-        5
+        5.8
       );
       timeline.current.add(
         StreamAnimation({ className: "js-stream-four" }),
@@ -53,8 +57,11 @@ const SquareGrid: React.FC<SquareGridProps> = ({}) => {
       );
       timeline.current.add(
         StreamAnimation({ className: "js-stream-five" }),
-        7.7
+        8.5
       );
+      timeline.current.add(StreamAnimation({ className: "js-stream-12" }), 5);
+      timeline.current.add(StreamAnimation({ className: "js-stream-18" }), 7.5);
+      timeline.current.add(StreamAnimation({ className: "js-stream-20" }), 8.2);
       timeline.current.to(".js-scanner", { opacity: 0 });
 
       timeline.current.timeScale(1.5);
@@ -71,8 +78,10 @@ const SquareGrid: React.FC<SquareGridProps> = ({}) => {
       onClick={handleClick}
     >
       <Scanner />
+      <Map />
       {/*  */}
       {/*  */}
+      <SquareRow />
       <SquareRow />
       <SquareRow />
       <SquareRow />
@@ -80,11 +89,10 @@ const SquareGrid: React.FC<SquareGridProps> = ({}) => {
       <SquareRow />
       <SquareRow
         streams={[
-          { type: "legal", position: 2, class: "js-stream-one" },
-          { type: "legal", position: 12, class: "js-stream-three" },
+          { type: "legal", position: 19, class: "js-stream-one" },
+          { type: "legal", position: 14, class: "js-stream-three" },
         ]}
       />
-      <SquareRow />
       <SquareRow />
       {/* row with detected pirate stream */}
       <SquareRow
@@ -95,20 +103,24 @@ const SquareGrid: React.FC<SquareGridProps> = ({}) => {
       />
       {/* central row */}
       <SquareRow
-        streams={[{ type: "legal", position: 11, class: "js-stream-legal" }]}
-      />
-      <SquareRow />
-      <SquareRow
-        streams={[{ type: "legal", position: 14, class: "js-stream-four" }]}
-      />
-      <SquareRow />
-      <SquareRow />
-      <SquareRow
         streams={[
-          { type: "legal", position: 5, class: "js-stream-two" },
-          { type: "legal", position: 19, class: "js-stream-five" },
+          { type: "legal", position: 12, class: "js-stream-12" },
+          { type: "legal", position: 20, class: "js-stream-20" },
         ]}
       />
+      <SquareRow
+        streams={[{ type: "legal", position: 18, class: "js-stream-18" }]}
+      />
+      <SquareRow
+      // streams={[{ type: "legal", position: 14, class: "js-stream-four" }]}
+      />{" "}
+      <SquareRow
+        streams={[
+          { type: "legal", position: 15, class: "js-stream-two" },
+          { type: "legal", position: 21, class: "js-stream-five" },
+        ]}
+      />
+      <SquareRow /> <SquareRow />
       <SquareRow />
       <SquareRow />
       <SquareRow />

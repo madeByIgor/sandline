@@ -251,7 +251,7 @@ const HomeHeroSkull: React.FC<HomeHeroSkullProps> = ({}) => {
           width: "",
           height: "",
           duration: 1,
-          backgroundColor: "#efeae1",
+          // backgroundColor: "#efeae1",
           ease: "expo.out",
           onComplete: () => {
             setHeroAniDone(true);

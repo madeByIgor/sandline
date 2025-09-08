@@ -1,6 +1,6 @@
 .wrapper {
   position: relative;
-  background: var(--bg);
+  /* background: var(--bg); */
   border-radius: 2px;
 }
 

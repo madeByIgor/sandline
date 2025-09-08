@@ -47,8 +47,8 @@ const DetectedSquare: React.FC<DetectedSquareProps> = ({
               duration: 2,
             });
             gsap.to(squareGridRef.current, {
-              backgroundColor: "#f5f5f4",
-              duration: 2,
+              // backgroundColor: "#f5f5f4",
+              // duration: 2,
             });
           },
         })
