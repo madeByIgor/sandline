@@ -4,7 +4,6 @@ import React, { useRef } from "react";
 import { useGlobalContext } from "../../../context/GlobalContext";
 import DetectedSquare from "./DetectedSquare";
 import styles from "./style.module.css";
-import DefendedSquare from "./DefendedSquare";
 gsap.registerPlugin(useGSAP);
 
 export interface StreamType {
@@ -81,7 +80,12 @@ const Square: React.FC<SquareProps> = ({ stream, isDetected }) => {
             <DetectedSquare setIsIllegalStream={setIsIllegalStream} />
           )}
           {heroAniDone ? (
-            <DefendedSquare />
+            <div
+              className={`${styles.circleWrap} ${stream.class}`}
+              style={{ color: "gray", opacity: 0.5 }}
+            >
+              <div className={`${styles.circle} js-circle`}></div>
+            </div>
           ) : (
             <div
               className={`${styles.circleWrap} ${stream.class}`}

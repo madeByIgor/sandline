@@ -5,9 +5,10 @@ import { useGlobalContext } from "../../context/GlobalContext";
 import Corner from "../UI/Corner/Corner";
 import Scanner from "../UI/Scanner/Scanner";
 import TagInfo from "../UI/TagInfo/TagInfo";
-import HomeHeroShieldSvg from "./HomeHeroShieldSvg";
+
 import HomeHeroSkullSvg from "./HomeHeroSkullSvg";
 import styles from "./style.module.css";
+import HomeHeroInfoBox from "./HomeHeroInfoBox";
 interface HomeHeroSkullProps {}
 
 const HomeHeroSkull: React.FC<HomeHeroSkullProps> = ({}) => {
@@ -20,10 +21,10 @@ const HomeHeroSkull: React.FC<HomeHeroSkullProps> = ({}) => {
     () => {
       if (!skullRectangleRef.current) return;
       const skullRectangleWidth = skullRectangleRef.current.offsetWidth;
-      gsap.set(".hero-svg-shield", {
+      gsap.set(".js-home-info-box", {
         opacity: 0,
-        scale: 0.9,
       });
+
       gsap.set(".js-hero-skull-img-wrap .svg-top path", {
         transformOrigin: "50% 50%",
       });
@@ -141,10 +142,15 @@ const HomeHeroSkull: React.FC<HomeHeroSkullProps> = ({}) => {
           },
           "-=0.4"
         )
-        .to(".hero-svg-shield", {
-          opacity: 1,
-          scale: 1,
-        })
+        .to(
+          ".js-circle-dots, .js-circle-lines",
+          {
+            opacity: 0,
+            scale: 0.5,
+            stagger: 0.1,
+          },
+          "-=0.7"
+        )
         .set(
           ".js-tag",
           {
@@ -162,22 +168,81 @@ const HomeHeroSkull: React.FC<HomeHeroSkullProps> = ({}) => {
           },
           "<"
         )
+        .set(
+          ".js-home-info-box",
+          {
+            opacity: 1,
+          },
+          "-=1"
+        )
+        .to(
+          ".js-home-info-title",
+          {
+            scrambleText: "Protected by Sandline",
+          },
+          "-=1"
+        )
+        .to(
+          ".js-home-info-text-1",
+          {
+            scrambleText: "Node id:",
+          },
+          "-=0.28"
+        )
+        .to(
+          ".js-home-info-text-2",
+          {
+            scrambleText: "#a45x-92",
+          },
+          "-=0.28"
+        )
+        .to(
+          ".js-home-info-text-3",
+          {
+            scrambleText: "activity:",
+          },
+          "-=0.28"
+        )
+        .to(
+          ".js-home-info-text-4",
+          {
+            scrambleText: "4,392 unauthorized views",
+          },
+          "-=0.28"
+        )
+        .to(
+          ".js-home-info-text-5",
+          {
+            scrambleText: "integrity:",
+          },
+          "-=0.28"
+        )
+        .to(
+          ".js-home-info-text-6",
+          {
+            scrambleText: "compromised cdn node",
+          },
+          "-=0.28"
+        )
+
         .to(".js-tag", {
           delay: 1.5,
           scrambleText: {
             text: "X",
           },
         })
+        .to(
+          ".js-home-info-box p",
+          {
+            scrambleText: "",
+          },
+          "-=0.7"
+        )
         .set(".js-tag", {
           opacity: 0,
         })
         .to(".js-corner", {
           "--size": "0px",
-        })
-        .to(".js-circle-dots, .js-circle-lines, .hero-svg-shield", {
-          opacity: 0,
-          scale: 0.5,
-          stagger: 0.1,
         })
         .to(squareGridRef.current, {
           x: 0,
@@ -246,7 +311,7 @@ const HomeHeroSkull: React.FC<HomeHeroSkullProps> = ({}) => {
         <div className={`js-hero-skull-img-wrap`}>
           <HomeHeroSkullSvg />
         </div>
-        <HomeHeroShieldSvg />
+        <HomeHeroInfoBox />
       </div>
       {/*  */}
     </div>

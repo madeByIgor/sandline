@@ -142,7 +142,32 @@
   background-color: var(--green);
 }
 
-.shieldSvg {
-  /* stroke-width: 1px; */
-  /* stroke: red; */
+.homeInfoRow {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  white-space: nowrap;
+  gap: 40px;
+  & p:first-child {
+    /* font-weight: bold; */
+    text-transform: uppercase;
+  }
+  & p:nth-child(2) {
+    /* font-weight: bold; */
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+}
+
+.homeInfoTitle {
+  font-weight: 600;
+  text-align: center;
+  font-size: 11px;
+  margin-bottom: 10px;
+  color: var(--sand);
+  text-transform: uppercase;
+}
+
+.homeInfoBox {
+  width: 80%;
 }
