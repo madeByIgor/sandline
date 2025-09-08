@@ -96,19 +96,26 @@ const HomeHeroSkull: React.FC<HomeHeroSkullProps> = ({}) => {
         .to(".js-scanner", {
           x: skullRectangleWidth - 1,
           duration: 1.25,
+          yoyo: true,
+          ease: "power1.inOut",
+          repeat: 3,
           onComplete: () => {
             gsap.to(".js-scanner", { opacity: 0, duration: 0.25 });
-            gsap.to(".js-hero-skull-img-wrap svg path", {
-              fill: "var(--red)",
-            });
           },
         })
+        .to(
+          ".js-hero-skull-img-wrap svg path",
+          {
+            fill: "var(--red)",
+          },
+          "-=0.5"
+        )
         .set(
           ".js-tag",
           {
             "--bg": "var(--red)",
           },
-          "-=0.2"
+          "-=0.3"
         )
         .to(
           ".js-tag",

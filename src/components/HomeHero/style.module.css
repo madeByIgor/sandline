@@ -9,7 +9,6 @@
   position: fixed;
   width: 100vw;
   aspect-ratio: 1/1;
-  /* background-color: red; */
   pointer-events: none;
   z-index: -1;
   top: 50%;
@@ -17,7 +16,7 @@
 }
 .inner {
   height: 100vh;
-  max-width: 1800px;
+  max-width: 2200px;
   margin: 0 auto;
   display: flex;
   justify-content: flex-start;
@@ -26,18 +25,18 @@
 }
 
 .content {
-  width: 50%;
+  width: 60%;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   gap: 24px;
 }
 .heading {
-  font-size: 64px;
+  font-size: 80px;
   font-weight: 400;
   letter-spacing: -0.03em;
   text-transform: capitalize;
-  line-height: 1.2em;
+  line-height: 1.1em;
   & > span {
     color: var(--sand);
   }
@@ -45,12 +44,12 @@
 
 @media screen and (min-width: 1600px) {
   .heading {
-    font-size: 80px;
+    font-size: 96px;
   }
 }
 @media screen and (min-width: 2000px) {
   .heading {
-    font-size: 100px;
+    font-size: 120px;
   }
 }
 

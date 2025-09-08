@@ -32,7 +32,7 @@ const SquareGrid: React.FC<SquareGridProps> = ({}) => {
         {
           color: "var(--red)",
           duration: 0.25,
-          delay: 7,
+          // delay: 7,
           onComplete: () => setIsStreamDetected(true),
         },
         "<"
@@ -94,7 +94,9 @@ const SquareGrid: React.FC<SquareGridProps> = ({}) => {
         ]}
       />
       {/* central row */}
-      <SquareRow />
+      <SquareRow
+        streams={[{ type: "legal", position: 11, class: "js-stream-legal" }]}
+      />
       <SquareRow />
       <SquareRow
         streams={[{ type: "legal", position: 14, class: "js-stream-four" }]}
