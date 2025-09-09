@@ -12,8 +12,13 @@ import HomeHeroInfoBox from "./HomeHeroInfoBox";
 interface HomeHeroSkullProps {}
 
 const HomeHeroSkull: React.FC<HomeHeroSkullProps> = ({}) => {
-  const { skullTargetSlotRef, squareGridRef, heroAniDone, setHeroAniDone } =
-    useGlobalContext();
+  const {
+    skullTargetSlotRef,
+    squareGridRef,
+    heroAniDone,
+    setHeroAniDone,
+    mapRef,
+  } = useGlobalContext();
   const tl = useRef<GSAPTimeline | null>(null);
   const skullRectangleRef = useRef<HTMLDivElement | null>(null);
 
@@ -246,17 +251,24 @@ const HomeHeroSkull: React.FC<HomeHeroSkullProps> = ({}) => {
         })
         .to(squareGridRef.current, {
           x: 0,
+          yPercent: -50,
           y: 0,
           scale: 1,
           width: "",
           height: "",
           duration: 1,
-          // backgroundColor: "#efeae1",
           ease: "expo.out",
           onComplete: () => {
             setHeroAniDone(true);
           },
-        });
+        })
+        .to(
+          mapRef.current,
+          {
+            opacity: 1,
+          },
+          "<"
+        );
     },
     { scope: skullTargetSlotRef }
   );
@@ -270,6 +282,7 @@ const HomeHeroSkull: React.FC<HomeHeroSkullProps> = ({}) => {
         transformOrigin: "50% 50%",
         opacity: 0.16,
       });
+
       gsap.to(".js-circle", { opacity: 1, scale: 1 });
       gsap.to(squareGridRef.current, {
         duration: 0.5,

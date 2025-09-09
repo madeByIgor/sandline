@@ -41,17 +41,17 @@ const DetectedSquare: React.FC<DetectedSquareProps> = ({
           },
           onComplete: () => {
             setIsIllegalStream(true);
+            gsap.to(".js-map", {
+              opacity: 0,
+            });
             Flip.fit(squareGridRef.current, squareFullScreenRef.current, {
               ease: "power1.inOut",
               fitChild: `.js-stream-illegal`,
               duration: 2,
             });
-            gsap.to(squareGridRef.current, {
-              // backgroundColor: "#f5f5f4",
-              // duration: 2,
-            });
           },
         })
+
         .set(
           ".js-detected-tag-wrapper",
           { opacity: 0, duration: 0.25 },

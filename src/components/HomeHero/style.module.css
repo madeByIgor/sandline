@@ -25,7 +25,7 @@
 }
 
 .content {
-  width: 60%;
+  width: 40%;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -66,11 +66,11 @@
 }
 
 .skullWrapper {
-  width: 50%;
+  width: 60%;
   display: flex;
   justify-content: center;
   align-items: center;
-  /* border: 1px solid black; */
+
   height: 100%;
 }
 
@@ -82,7 +82,6 @@
   align-items: center;
   position: relative;
   gap: 16px;
-  /* border: 1px solid pink; */
 }
 
 .skullInner svg {
@@ -99,16 +98,16 @@
 
 .illegalStreamRectangle {
   position: relative;
-  font-size: 100%;
-  width: 20em;
+  font-size: 1vw;
+  width: 25em;
   min-height: 50px;
   display: flex;
   flex-direction: column;
 }
 .skullRectangle {
   position: relative;
-  font-size: 100%;
-  width: 20em;
+  font-size: 1vw;
+  width: 25em;
   aspect-ratio: 1/1;
   position: relative;
   display: flex;

@@ -31,12 +31,12 @@ const Square: React.FC<SquareProps> = ({ stream, isDetected }) => {
       timeline.current = gsap
         .timeline({ repeat: -1 })
         .to(".js-pulsing-circle", {
-          scale: 0.6,
+          scale: 0.4,
           duration: 1,
           ease: "power1.out",
         })
         .to(".js-pulsing-circle", {
-          scale: 0.8,
+          scale: 0.6,
           opacity: 0,
           ease: "power1.out",
           duration: 0.25,
@@ -100,7 +100,7 @@ const Square: React.FC<SquareProps> = ({ stream, isDetected }) => {
           )}
         </>
       )}
-      {/* <div className={styles.n}>{index}</div> */}
+      {/* <div className={styles.n}>C{index}</div> */}
     </div>
   );
 };

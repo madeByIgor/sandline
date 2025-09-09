@@ -2,11 +2,13 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 1px;
+  /* gap: 1px; */
   /* background-color: var(--gridline); */
   position: fixed;
   width: 100%;
   top: 50%;
   transform: translateY(-50%);
   z-index: 1;
+
+  padding-left: 29%;
 }

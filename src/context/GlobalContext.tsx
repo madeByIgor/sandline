@@ -17,6 +17,7 @@ interface GlobalContextValues {
   setIsIllegalStream: Dispatch<SetStateAction<boolean>>;
   heroAniDone: boolean;
   setHeroAniDone: Dispatch<SetStateAction<boolean>>;
+  mapRef: RefObject<HTMLDivElement | null>;
 }
 
 interface GlobalProviderProps {
@@ -28,6 +29,7 @@ const GlobalContext = createContext<GlobalContextValues | undefined>(undefined);
 const GlobalProvider: React.FC<GlobalProviderProps> = ({ children }) => {
   const skullTargetSlotRef = useRef(null);
   const squareGridRef = useRef(null);
+  const mapRef = useRef(null);
   const squareFullScreenRef = useRef(null);
   const [isIllegalStream, setIsIllegalStream] = useState(false);
   const [heroAniDone, setHeroAniDone] = useState(false);
@@ -42,6 +44,7 @@ const GlobalProvider: React.FC<GlobalProviderProps> = ({ children }) => {
         squareFullScreenRef,
         heroAniDone,
         setHeroAniDone,
+        mapRef,
       }}
     >
       {children}
