@@ -42,7 +42,7 @@ const DetectedSquare: React.FC<DetectedSquareProps> = ({
           onComplete: () => {
             setIsIllegalStream(true);
             gsap.to(".js-map", {
-              opacity: 0,
+              // opacity: 0,
             });
             Flip.fit(squareGridRef.current, squareFullScreenRef.current, {
               ease: "power1.inOut",

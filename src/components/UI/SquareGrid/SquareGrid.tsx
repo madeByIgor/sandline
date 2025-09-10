@@ -118,6 +118,7 @@ const SquareGrid: React.FC<SquareGridProps> = ({}) => {
         streams={[
           { type: "legal", position: 8, class: "js-stream-8" },
           { type: "legal", position: 11, class: "js-stream-11" },
+          { type: "legal", position: 27, class: "js-stream-27" },
           { type: "legal", position: 38, class: "js-stream-38" },
           { type: "legal", position: 30, class: "js-stream-30" },
           { type: "legal", position: 31, class: "js-stream-31" },
@@ -140,6 +141,7 @@ const SquareGrid: React.FC<SquareGridProps> = ({}) => {
       <SquareRow
         streams={[
           { type: "legal", position: 5, class: "js-stream-5" },
+          { type: "legal", position: 12, class: "js-stream-12" },
           { type: "legal", position: 27, class: "js-stream-27" },
           { type: "legal", position: 34, class: "js-stream-34" },
         ]}

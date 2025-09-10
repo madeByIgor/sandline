@@ -101,7 +101,7 @@ const HomeHeroSkull: React.FC<HomeHeroSkullProps> = ({}) => {
         })
         .to(".js-scanner", {
           x: skullRectangleWidth - 1,
-          duration: 1.25,
+          duration: 1.95,
           yoyo: true,
           ease: "power1.inOut",
           repeat: 3,
@@ -133,12 +133,23 @@ const HomeHeroSkull: React.FC<HomeHeroSkullProps> = ({}) => {
           },
           "<"
         )
-        .to(".js-hero-skull-img-wrap path", {
-          delay: 0.3,
-          duration: 1.5,
-          y: gsap.utils.random(400, 650, 25, true),
-          rotate: gsap.utils.random(-12, 12, 1, true),
+        .to(".js-tag", {
+          duration: 1,
+          delay: 0.7,
+          scrambleText: {
+            text: "Taking down stream...",
+          },
         })
+        .to(
+          ".js-hero-skull-img-wrap path",
+          {
+            delay: 0.3,
+            duration: 1.5,
+            y: gsap.utils.random(400, 650, 25, true),
+            rotate: gsap.utils.random(-12, 12, 1, true),
+          },
+          "-=0.3"
+        )
         .to(
           ".js-hero-skull-img-wrap path",
           {

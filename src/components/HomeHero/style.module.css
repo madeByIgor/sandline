@@ -7,12 +7,14 @@
 
 .squareFullScreen {
   position: fixed;
-  width: 100vw;
+  width: 150vw;
   aspect-ratio: 1/1;
   pointer-events: none;
   z-index: -1;
   top: 50%;
-  transform: translateY(-50%);
+  left: 50%;
+  transform: translate(-50%, -50%);
+  will-change: transform;
 }
 .inner {
   height: 100vh;
@@ -32,7 +34,7 @@
   gap: 24px;
 }
 .heading {
-  font-size: 80px;
+  font-size: 5.4vw;
   font-weight: 400;
   letter-spacing: -0.03em;
   text-transform: capitalize;
@@ -42,12 +44,7 @@
   }
 }
 
-@media screen and (min-width: 1600px) {
-  .heading {
-    font-size: 96px;
-  }
-}
-@media screen and (min-width: 2000px) {
+@media screen and (min-width: 2100px) {
   .heading {
     font-size: 120px;
   }
