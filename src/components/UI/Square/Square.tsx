@@ -19,7 +19,7 @@ interface SquareProps {
   isDetected?: boolean;
 }
 
-const Square: React.FC<SquareProps> = ({ stream, isDetected, index }) => {
+const Square: React.FC<SquareProps> = ({ stream, isDetected }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const timeline = useRef<GSAPTimeline | null>(null);
   const { isIllegalStream, setIsIllegalStream, heroAniDone } =
