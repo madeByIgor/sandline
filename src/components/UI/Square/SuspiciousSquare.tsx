@@ -24,7 +24,6 @@ const SuspiciousSquare: React.FC<SuspiciousSquareProps> = ({ stream }) => {
   useGSAP(
     () => {
       gsap.set(".js-question-mark", {
-        // display: "none",
         opacity: 0,
       });
       if (!gridTimeline) return;
