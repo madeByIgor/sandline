@@ -2,12 +2,14 @@ import { useGSAP } from "@gsap/react";
 import { gsap } from "gsap";
 import React, { useRef } from "react";
 import { useGlobalContext } from "../../../context/GlobalContext";
-import DetectedSquare from "./DetectedSquare";
+import IllegalSquare from "./IllegalSquare";
+import LegalSquare from "./LegalSquare";
 import styles from "./style.module.css";
+import SuspiciousSquare from "./SuspiciousSquare";
 gsap.registerPlugin(useGSAP);
 
 export interface StreamType {
-  type: "legal" | "illegal";
+  type: "legal" | "illegal" | "suspicious";
   position: number;
   class?: string;
 }
@@ -22,8 +24,7 @@ interface SquareProps {
 const Square: React.FC<SquareProps> = ({ stream, isDetected }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const timeline = useRef<GSAPTimeline | null>(null);
-  const { isIllegalStream, setIsIllegalStream, heroAniDone } =
-    useGlobalContext();
+  const { isIllegalStream } = useGlobalContext();
   useGSAP(
     () => {
       if (!stream?.type) return;
@@ -58,6 +59,7 @@ const Square: React.FC<SquareProps> = ({ stream, isDetected }) => {
     },
     { scope: containerRef, dependencies: [isIllegalStream] }
   );
+
   return (
     <div
       ref={stream?.type ? containerRef : null}
@@ -65,42 +67,11 @@ const Square: React.FC<SquareProps> = ({ stream, isDetected }) => {
         isDetected ? styles.detectedWrapper : ""
       }`}
     >
-      {stream?.type === "legal" && (
-        <div
-          className={`${styles.circleWrap} ${stream.class}`}
-          style={{ color: "var(--sand)" }}
-        >
-          <div className={`${styles.pulsingCircle} js-pulsing-circle`}></div>
-          <div className={`${styles.circle} js-circle`}></div>
-        </div>
-      )}
+      {stream?.type === "legal" && <LegalSquare stream={stream} />}
+      {stream?.type === "suspicious" && <SuspiciousSquare stream={stream} />}
       {stream?.type === "illegal" && (
-        <>
-          {isDetected && (
-            <DetectedSquare setIsIllegalStream={setIsIllegalStream} />
-          )}
-          {heroAniDone ? (
-            <div
-              className={`${styles.circleWrap} ${stream.class}`}
-              style={{ color: "gray", opacity: 0.5 }}
-            >
-              <div className={`${styles.circle} js-circle`}></div>
-            </div>
-          ) : (
-            <div
-              className={`${styles.circleWrap} ${stream.class}`}
-              style={{ color: "var(--sand)" }}
-            >
-              <div
-                className={`${styles.pulsingCircle} js-pulsing-circle`}
-              ></div>
-
-              <div className={`${styles.circle} js-circle`}></div>
-            </div>
-          )}
-        </>
+        <IllegalSquare stream={stream} isDetected={isDetected} />
       )}
-      {/* <div className={styles.n}>C{index}</div> */}
     </div>
   );
 };

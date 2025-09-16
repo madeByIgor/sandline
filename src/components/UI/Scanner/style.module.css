@@ -9,12 +9,7 @@
   z-index: 2;
   overflow: hidden;
   will-change: transform;
-  --bgColor: linear-gradient(
-    180deg,
-    rgba(178, 149, 96, 1) 0%,
-    rgba(83, 60, 255, 1) 50%,
-    rgba(178, 149, 96, 1) 100%
-  );
+  --bgColor: black;
 }
 
 .line {
@@ -33,10 +28,5 @@
   right: 0;
   position: absolute;
   filter: blur(28px);
-  background: linear-gradient(
-    180deg,
-    rgba(178, 149, 96, 1) 0%,
-    rgba(83, 60, 255, 1) 50%,
-    rgba(178, 149, 96, 1) 100%
-  );
+  background: var(--bgColor);
 }
