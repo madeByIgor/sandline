@@ -57,7 +57,21 @@ const SquareGrid: React.FC<SquareGridProps> = ({}) => {
   useGSAP(
     () => {
       if (!heroAniDone) return;
-      const tl = gsap.timeline();
+      const tl = gsap.timeline({ delay: 0.75 });
+      const tl2 = gsap.timeline({ repeat: -1 });
+
+      gsap.to(".js-legal-stream .js-circle", { opacity: 1, scale: 1 });
+      tl2
+        .to(".js-legal-stream .js-pulsing-circle", {
+          opacity: 0.16,
+          scale: 0.4,
+        })
+        .to(".js-legal-stream .js-pulsing-circle", {
+          scale: 0.6,
+          opacity: 0,
+          ease: "power1.out",
+          duration: 0.25,
+        });
 
       tl.to(".js-suspicious-square .js-circle", { opacity: 1, scale: 1 })
         .to(".js-suspicious-square .js-pulsing-circle", {
@@ -68,8 +82,22 @@ const SquareGrid: React.FC<SquareGridProps> = ({}) => {
         .to(".js-suspicious-square .js-pulsing-circle", {
           scale: 2,
           opacity: 0,
-          // ease: "linear",
-        });
+          stagger: {
+            each: 0.05,
+            from: "center",
+          },
+        })
+        .to(
+          ".js-suspicious-square",
+          {
+            color: "gray",
+            stagger: {
+              each: 0.05,
+              from: "center",
+            },
+          },
+          "<"
+        );
     },
     { scope: squareGridRef, dependencies: [heroAniDone] }
   );

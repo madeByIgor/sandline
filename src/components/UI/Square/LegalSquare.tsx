@@ -30,7 +30,7 @@ const LegalSquare: React.FC<LegalSquareProps> = ({ stream }) => {
   return (
     <div
       ref={container}
-      className={`${styles.circleWrap} ${stream.class}`}
+      className={`${styles.circleWrap} ${stream.class} js-legal-stream`}
       style={{ color: "var(--sand)" }}
     >
       <div className={`${styles.pulsingCircle} js-pulsing-circle`}></div>

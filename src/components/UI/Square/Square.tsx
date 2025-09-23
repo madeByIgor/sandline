@@ -54,8 +54,8 @@ const Square: React.FC<SquareProps> = ({ stream, isDetected }) => {
       timeline.current.kill();
       timeline.current = gsap.timeline();
       timeline.current
-        .to(".js-pulsing-circle", { opacity: 0 })
-        .to(".js-circle", { opacity: 0, scale: 0.4 });
+        .to(".js-pulsing-circle", { opacity: 0.16 })
+        .to(".js-circle", { opacity: 1, scale: 0.4 });
     },
     { scope: containerRef, dependencies: [isIllegalStream] }
   );

@@ -36,9 +36,9 @@ const SuspiciousSquare: React.FC<SuspiciousSquareProps> = ({ stream }) => {
           if (delay === 8.15) {
             gsap.to(squareGridRef.current, {
               scale: 0.8,
-              opacity: 0.5,
+              opacity: 0.8,
               duration: 1.5,
-              filter: "blur(10px)",
+              filter: "blur(6px)",
             });
 
             setIsIllegalStream(true);
