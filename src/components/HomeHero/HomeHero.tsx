@@ -2,7 +2,8 @@ import React from "react";
 import styles from "./style.module.css";
 import Button from "../UI/Button/Button";
 import { useGlobalContext } from "../../context/GlobalContext";
-import HomeHeroSkull from "./HomeHeroSkull";
+
+import HomeHeroDefend from "./HomeHeroDefend/HomeHeroDefend";
 
 interface HomeHeroProps {}
 
@@ -18,7 +19,7 @@ const HomeHero: React.FC<HomeHeroProps> = ({}) => {
         <div className={`${styles.inner}`}>
           <div className={`${styles.content}`}>
             <h1 className={styles.heading}>
-              Sandline. <br />{" "}
+              We are <br />
               <span className="highlight">digital privateers.</span>
             </h1>
             <p className={styles.description}>
@@ -31,7 +32,7 @@ const HomeHero: React.FC<HomeHeroProps> = ({}) => {
             </div>
           </div>
           <div className={`${styles.skullWrapper}`}>
-            {isIllegalStream && <HomeHeroSkull />}
+            {isIllegalStream && <HomeHeroDefend />}
           </div>
         </div>
       </section>

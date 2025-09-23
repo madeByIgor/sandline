@@ -19,58 +19,46 @@ const SuspiciousSquare: React.FC<SuspiciousSquareProps> = ({ stream }) => {
   const delay = found ? found.delay : 0; // default to 0 if not found
   const container = useRef<HTMLDivElement>(null);
 
-  const { gridTimeline } = useGlobalContext();
+  const {
+    gridTimeline,
+    squareGridRef,
+
+    setIsIllegalStream,
+  } = useGlobalContext();
 
   useGSAP(
     () => {
-      gsap.set(".js-question-mark", {
-        opacity: 0,
-      });
       if (!gridTimeline) return;
 
-      const tl = gsap.timeline();
-      tl.to(".js-circle", {
-        opacity: 0,
-        display: "none",
-      })
-        .to(".js-question-mark", {
-          // display: "block",
-          opacity: 1,
-        })
-        .to(
-          container.current,
-          {
-            color: "#ff4053",
-          },
-          "<"
-        );
+      const tween = gsap.to(container.current, {
+        color: "#ff4053",
+        onComplete: () => {
+          if (delay === 8.15) {
+            gsap.to(squareGridRef.current, {
+              scale: 0.8,
+              opacity: 0.5,
+              duration: 1.5,
+              filter: "blur(10px)",
+            });
 
-      gridTimeline.add(tl, delay);
+            setIsIllegalStream(true);
+          }
+        },
+      });
+      gridTimeline?.add(tween, delay);
+
+      gridTimeline.add(tween, delay);
     },
     { scope: container, dependencies: [gridTimeline] }
   );
   return (
     <div
       ref={container}
-      className={`${styles.circleWrap} ${stream.class}`}
+      className={`${styles.circleWrap} ${stream.class} js-suspicious-square`}
       style={{ color: "var(--sand)" }}
     >
       <div className={`${styles.pulsingCircle} js-pulsing-circle`}></div>
       <div className={`${styles.circle} js-circle`}></div>
-
-      <svg
-        className={`${styles.questionMark} js-question-mark`}
-        width="6"
-        height="10"
-        viewBox="0 0 6 10"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M2.03406 7.09785V7.00716C2.04055 6.41527 2.10057 5.94431 2.21411 5.59427C2.3309 5.24423 2.49635 4.96102 2.71046 4.74463C2.92457 4.52824 3.18248 4.33095 3.48418 4.15274C3.67883 4.03182 3.85401 3.89658 4.00973 3.74702C4.16545 3.59745 4.28873 3.42562 4.37956 3.2315C4.4704 3.03739 4.51582 2.82259 4.51582 2.58711C4.51582 2.3039 4.44769 2.05887 4.31144 1.85203C4.17518 1.64519 3.99351 1.48608 3.76642 1.3747C3.54258 1.26014 3.29278 1.20286 3.01703 1.20286C2.76723 1.20286 2.52879 1.25378 2.3017 1.35561C2.07461 1.45744 1.88646 1.61655 1.73723 1.83294C1.588 2.04614 1.50203 2.3214 1.47932 2.65871H0C0.0227089 2.08592 0.170316 1.60223 0.442822 1.20764C0.715328 0.809865 1.07543 0.509149 1.52311 0.305489C1.97405 0.10183 2.47202 0 3.01703 0C3.61395 0 4.13625 0.109785 4.58394 0.329356C5.03163 0.545744 5.37875 0.849642 5.6253 1.24105C5.8751 1.62928 6 2.08274 6 2.60143C6 2.95784 5.94323 3.27924 5.82968 3.56563C5.71614 3.84885 5.55393 4.10183 5.34307 4.32458C5.13544 4.54734 4.88564 4.74463 4.59367 4.91647C4.31792 5.08512 4.09408 5.26014 3.92214 5.44153C3.75345 5.62291 3.63017 5.83771 3.55231 6.08592C3.47445 6.33413 3.43228 6.64121 3.42579 7.00716V7.09785H2.03406ZM2.76886 10C2.50284 10 2.27413 9.90772 2.08273 9.72315C1.89132 9.5354 1.79562 9.30947 1.79562 9.04535C1.79562 8.78441 1.89132 8.56166 2.08273 8.37709C2.27413 8.18934 2.50284 8.09547 2.76886 8.09547C3.03163 8.09547 3.25872 8.18934 3.45012 8.37709C3.64477 8.56166 3.74209 8.78441 3.74209 9.04535C3.74209 9.22037 3.69667 9.38107 3.60584 9.52745C3.51825 9.67064 3.40146 9.7852 3.25547 9.87112C3.10949 9.95704 2.94728 10 2.76886 10Z"
-          fill="currentColor"
-        />
-      </svg>
     </div>
   );
 };

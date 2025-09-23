@@ -13,10 +13,11 @@ gsap.registerPlugin(useGSAP);
 interface SquareGridProps {}
 
 const SquareGrid: React.FC<SquareGridProps> = ({}) => {
-  const [isStreamDetected, setIsStreamDetected] = useState<boolean>(false);
+  const [isStreamDetected] = useState<boolean>(false);
 
   // const timeline = useRef<GSAPTimeline | null>(null);
-  const { squareGridRef, gridTimeline, setGridTimeline } = useGlobalContext();
+  const { squareGridRef, gridTimeline, setGridTimeline, heroAniDone } =
+    useGlobalContext();
 
   useGSAP(() => {
     // const deviceWidth = window.innerWidth;
@@ -29,7 +30,7 @@ const SquareGrid: React.FC<SquareGridProps> = ({}) => {
     () => {
       if (!gridTimeline) return;
       const deviceWidth = window.innerWidth;
-      const tl = gsap.timeline();
+      const tl = gsap.timeline({});
       tl.to(
         ".js-scanner",
         {
@@ -43,25 +44,38 @@ const SquareGrid: React.FC<SquareGridProps> = ({}) => {
       gridTimeline.add(
         gsap.to(".js-stream-illegal", {
           color: "#ff4053",
-          onComplete: () => {
-            setIsStreamDetected(true);
-          },
         }),
         6.95
       );
       gridTimeline.play();
-      // gridTimeline.to(".js-scanner", { opacity: 0 });
+
       gridTimeline.timeScale(1.5);
     },
     { scope: squareGridRef, dependencies: [gridTimeline] }
   );
-  function handleClick() {}
+
+  useGSAP(
+    () => {
+      if (!heroAniDone) return;
+      const tl = gsap.timeline();
+
+      tl.to(".js-suspicious-square .js-circle", { opacity: 1, scale: 1 })
+        .to(".js-suspicious-square .js-pulsing-circle", {
+          scale: 1,
+          opacity: 0.3,
+          ease: "linear",
+        })
+        .to(".js-suspicious-square .js-pulsing-circle", {
+          scale: 2,
+          opacity: 0,
+          // ease: "linear",
+        });
+    },
+    { scope: squareGridRef, dependencies: [heroAniDone] }
+  );
+
   return (
-    <div
-      ref={squareGridRef}
-      className={`${styles.grid} js-square-grid`}
-      onClick={handleClick}
-    >
+    <div ref={squareGridRef} className={`${styles.grid} js-square-grid`}>
       <Scanner />
       <Map />
       {/*  */}
@@ -90,9 +104,7 @@ const SquareGrid: React.FC<SquareGridProps> = ({}) => {
       />
       <SquareRow
         isDetected={isStreamDetected}
-        streams={[
-          { type: "illegal", position: 28, class: "js-stream-illegal" },
-        ]}
+        streams={[{ type: "suspicious", position: 28, class: "js-stream-28" }]}
       />
       <SquareRow
         streams={[

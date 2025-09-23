@@ -13,12 +13,12 @@ const Scanner: React.FC<ScannerProps> = ({ height }) => {
     const nextColor = gsap.utils.wrap(colors);
     let i = 0;
 
-    gsap.to(".js-scanner", {
-      duration: 2,
-      repeat: -1,
-      repeatRefresh: true,
-      "--bgColor": () => nextColor(i++),
-    });
+    // gsap.to(".js-scanner", {
+    //   duration: 2,
+    //   repeat: -1,
+    //   repeatRefresh: true,
+    //   "--bgColor": () => nextColor(i++),
+    // });
   });
   return (
     <div className={`${styles.wrapper} js-scanner`} style={{ height: height }}>

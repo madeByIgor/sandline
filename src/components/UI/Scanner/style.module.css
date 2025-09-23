@@ -1,5 +1,5 @@
 .wrapper {
-  --height: 100vh;
+  --height: 150vh;
   width: 81px;
   height: var(--height);
   position: absolute;
@@ -9,7 +9,7 @@
   z-index: 2;
   overflow: hidden;
   will-change: transform;
-  --bgColor: black;
+  --bgColor: var(--sand);
 }
 
 .line {

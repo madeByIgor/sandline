@@ -11,6 +11,7 @@ interface LegalSquareProps {
 
 const LegalSquare: React.FC<LegalSquareProps> = ({ stream }) => {
   const container = useRef<HTMLDivElement>(null);
+
   const { gridTimeline } = useGlobalContext();
   const found = streamsPositionDelays.find(
     (s) => s.position === stream.position
@@ -22,7 +23,7 @@ const LegalSquare: React.FC<LegalSquareProps> = ({ stream }) => {
     () => {
       if (!gridTimeline) return;
       const tween = gsap.to(container.current, { color: "#62b762" });
-      gridTimeline?.add(tween, delay);
+      gridTimeline.add(tween, delay);
     },
     { scope: container, dependencies: [gridTimeline] }
   );
@@ -34,7 +35,6 @@ const LegalSquare: React.FC<LegalSquareProps> = ({ stream }) => {
     >
       <div className={`${styles.pulsingCircle} js-pulsing-circle`}></div>
       <div className={`${styles.circle} js-circle`}></div>
-      {/* <img src={imgQmark} /> */}
     </div>
   );
 };
