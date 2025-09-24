@@ -5,7 +5,7 @@ import streamsPositionDelays from "../SquareGrid/streamsPositionDelays.consts";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { useGlobalContext } from "../../../context/GlobalContext";
-
+import qMark from "../../../assets/images/svg/qmark.svg";
 interface SuspiciousSquareProps {
   stream: StreamType;
 }
@@ -28,11 +28,17 @@ const SuspiciousSquare: React.FC<SuspiciousSquareProps> = ({ stream }) => {
 
   useGSAP(
     () => {
+      gsap.set(".js-qmark", {
+        scale: 0,
+      });
       if (!gridTimeline) return;
 
-      const tween = gsap.to(container.current, {
-        color: "#ff4053",
+      const tween = gsap.to(".js-suspicious-square .js-circle", {
+        scale: 0,
         onComplete: () => {
+          gsap.to(".js-qmark", {
+            scale: 1,
+          });
           if (delay === 8.15) {
             gsap.to(squareGridRef.current, {
               scale: 0.8,
@@ -59,6 +65,7 @@ const SuspiciousSquare: React.FC<SuspiciousSquareProps> = ({ stream }) => {
     >
       <div className={`${styles.pulsingCircle} js-pulsing-circle`}></div>
       <div className={`${styles.circle} js-circle`}></div>
+      <img className="js-qmark" src={qMark} />
     </div>
   );
 };

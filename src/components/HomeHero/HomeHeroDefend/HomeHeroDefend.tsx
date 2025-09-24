@@ -111,7 +111,7 @@ const HomeHeroDefend: React.FC<HomeHeroDefendProps> = ({}) => {
           opacity: 0,
         })
         .to(".js-tag", {
-          scrambleText: "f",
+          scrambleText: "_",
           onComplete: () => {
             setHeroAniDone(true);
             gsap.set(".js-tag", {

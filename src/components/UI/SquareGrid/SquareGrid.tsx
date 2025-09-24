@@ -77,7 +77,11 @@ const SquareGrid: React.FC<SquareGridProps> = ({}) => {
           duration: 0.25,
         });
 
-      tl.to(".js-suspicious-square .js-circle", { opacity: 1, scale: 1 })
+      tl.to(".js-suspicious-square .js-qmark", { opacity: 0, scale: 0 })
+        .to(".js-suspicious-square", {
+          color: "#ff4053",
+        })
+        .to(".js-suspicious-square .js-circle", { opacity: 1, scale: 1 })
         .to(".js-suspicious-square .js-pulsing-circle", {
           scale: 1,
           opacity: 0.3,
