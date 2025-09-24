@@ -36,6 +36,9 @@ const SuspiciousSquare: React.FC<SuspiciousSquareProps> = ({ stream }) => {
       const tween = gsap.to(".js-suspicious-square .js-circle", {
         scale: 0,
         onComplete: () => {
+          gsap.to(container.current, {
+            color: "#ff4053",
+          });
           gsap.to(".js-qmark", {
             scale: 1,
           });
