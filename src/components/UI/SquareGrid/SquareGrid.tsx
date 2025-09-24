@@ -61,6 +61,10 @@ const SquareGrid: React.FC<SquareGridProps> = ({}) => {
       const tl2 = gsap.timeline({ repeat: -1 });
 
       gsap.to(".js-legal-stream .js-circle", { opacity: 1, scale: 1 });
+      gsap.set(".js-legal-stream .js-pulsing-circle", {
+        scale: 0,
+        transformOrigin: "50% 50%",
+      });
       tl2
         .to(".js-legal-stream .js-pulsing-circle", {
           opacity: 0.16,
