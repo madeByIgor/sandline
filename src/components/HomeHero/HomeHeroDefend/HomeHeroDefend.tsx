@@ -14,32 +14,34 @@ const HomeHeroDefend: React.FC<HomeHeroDefendProps> = ({}) => {
   const container = useRef(null);
   useGSAP(
     () => {
-      const illegalStreams = [
+      const illegalStreamsConstants = [
         {
-          streamName: "Illegal stream #a45x-92-48g ",
+          streamName: "Illegal activity #a45x-92-48g ",
         },
         {
-          streamName: "Illegal stream #b83k-31-24o ",
+          streamName: "Illegal activity #b83k-31-24o ",
         },
         {
-          streamName: "Illegal stream #g90a-11-85f ",
+          streamName: "Illegal activity #g90a-11-85f ",
         },
         {
-          streamName: "Illegal stream #n54n-29-13b ",
+          streamName: "Illegal activity #n54n-29-13b ",
         },
         {
-          streamName: "Illegal stream #r21l-67-04a ",
+          streamName: "Illegal activity #r21l-67-04a ",
         },
         {
-          streamName: "+24 illegal streams detected",
+          streamName: "+24 illegal activities detected",
         },
       ];
+
       gsap.set(".js-defend-item", {
         height: 0,
       });
       gsap.set(".js-defend-item svg, .js-scanner", {
         opacity: 0,
       });
+
       const tl = gsap.timeline();
       tl.to(".js-defend-items", {
         delay: 1,
@@ -70,7 +72,8 @@ const HomeHeroDefend: React.FC<HomeHeroDefendProps> = ({}) => {
             delay: 0.5,
             duration: 1,
             stagger: 0.3,
-            scrambleText: ((i: number) => illegalStreams[i].streamName) as any,
+            scrambleText: ((i: number) =>
+              illegalStreamsConstants[i].streamName) as any,
           },
           "<"
         )
@@ -83,7 +86,7 @@ const HomeHeroDefend: React.FC<HomeHeroDefendProps> = ({}) => {
           "<"
         )
         .to(".js-tag", {
-          scrambleText: "taking down illegal streams",
+          scrambleText: "taking down illegal activities",
         })
         .to(".js-scanner", {
           opacity: 1,
@@ -100,11 +103,11 @@ const HomeHeroDefend: React.FC<HomeHeroDefendProps> = ({}) => {
           },
         })
         .to(".js-defend-item-text", {
-          scrambleText: "Illegal stream taken down",
+          scrambleText: "Illegal activity taken down",
           stagger: 0.15,
         })
         .to(".js-tag", {
-          scrambleText: "All detected streams taken down",
+          scrambleText: "All detected acitivites taken down",
           backgroundColor: "var(--green)",
         })
         .to(".js-defend-item svg", {
@@ -147,7 +150,7 @@ const HomeHeroDefend: React.FC<HomeHeroDefendProps> = ({}) => {
 
   return (
     <div ref={container} className={`${styles.wrapper}`}>
-      <div className={`${styles.tag} js-tag`}>Illegal streams detected</div>
+      <div className={`${styles.tag} js-tag`}>Illegal activites detected</div>
       <div className={`${styles.defendItems} js-defend-items`}>
         <DefendItem />
         <DefendItem />

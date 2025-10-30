@@ -2,14 +2,13 @@ import { useGSAP } from "@gsap/react";
 import { gsap } from "gsap";
 import React, { useRef } from "react";
 import { useGlobalContext } from "../../../context/GlobalContext";
-import IllegalSquare from "./IllegalSquare";
 import LegalSquare from "./LegalSquare";
 import styles from "./style.module.css";
 import SuspiciousSquare from "./SuspiciousSquare";
 gsap.registerPlugin(useGSAP);
 
 export interface StreamType {
-  type: "legal" | "illegal" | "suspicious";
+  type: "legal" | "suspicious";
   position: number;
   class?: string;
 }
@@ -18,10 +17,9 @@ interface SquareProps {
   index: number;
   type?: string;
   stream?: StreamType;
-  isDetected?: boolean;
 }
 
-const Square: React.FC<SquareProps> = ({ stream, isDetected }) => {
+const Square: React.FC<SquareProps> = ({ stream }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const timeline = useRef<GSAPTimeline | null>(null);
   const { isIllegalStream } = useGlobalContext();
@@ -63,15 +61,10 @@ const Square: React.FC<SquareProps> = ({ stream, isDetected }) => {
   return (
     <div
       ref={stream?.type ? containerRef : null}
-      className={`${styles.wrapper} ${
-        isDetected ? styles.detectedWrapper : ""
-      }`}
+      className={`${styles.wrapper}`}
     >
       {stream?.type === "legal" && <LegalSquare stream={stream} />}
       {stream?.type === "suspicious" && <SuspiciousSquare stream={stream} />}
-      {stream?.type === "illegal" && (
-        <IllegalSquare stream={stream} isDetected={isDetected} />
-      )}
     </div>
   );
 };

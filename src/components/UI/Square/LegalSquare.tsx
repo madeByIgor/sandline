@@ -1,8 +1,8 @@
-import React, { useRef } from "react";
+import { useRef } from "react";
 import styles from "./style.module.css";
 import type { StreamType } from "./Square";
-import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
 import streamsPositionDelays from "../SquareGrid/streamsPositionDelays.consts";
 import { useGlobalContext } from "../../../context/GlobalContext";
 interface LegalSquareProps {

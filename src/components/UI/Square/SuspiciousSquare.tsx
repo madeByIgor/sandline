@@ -11,7 +11,6 @@ interface SuspiciousSquareProps {
 }
 
 const SuspiciousSquare: React.FC<SuspiciousSquareProps> = ({ stream }) => {
-  // const [isScanned, setIsScanned] = useState<boolean>(false);
   const found = streamsPositionDelays.find(
     (s) => s.position === stream.position
   );
@@ -19,12 +18,8 @@ const SuspiciousSquare: React.FC<SuspiciousSquareProps> = ({ stream }) => {
   const delay = found ? found.delay : 0; // default to 0 if not found
   const container = useRef<HTMLDivElement>(null);
 
-  const {
-    gridTimeline,
-    squareGridRef,
-
-    setIsIllegalStream,
-  } = useGlobalContext();
+  const { gridTimeline, squareGridRef, setIsIllegalStream } =
+    useGlobalContext();
 
   useGSAP(
     () => {
@@ -54,8 +49,6 @@ const SuspiciousSquare: React.FC<SuspiciousSquareProps> = ({ stream }) => {
           }
         },
       });
-      gridTimeline?.add(tween, delay);
-
       gridTimeline.add(tween, delay);
     },
     { scope: container, dependencies: [gridTimeline] }

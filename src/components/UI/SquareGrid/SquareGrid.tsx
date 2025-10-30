@@ -8,14 +8,9 @@ import styles from "./style.module.css";
 import { useGlobalContext } from "../../../context/GlobalContext";
 import Map from "../Map/Map";
 
-gsap.registerPlugin(useGSAP);
-
 interface SquareGridProps {}
 
 const SquareGrid: React.FC<SquareGridProps> = ({}) => {
-  const [isStreamDetected] = useState<boolean>(false);
-
-  // const timeline = useRef<GSAPTimeline | null>(null);
   const { squareGridRef, gridTimeline, setGridTimeline, heroAniDone } =
     useGlobalContext();
 
@@ -40,13 +35,9 @@ const SquareGrid: React.FC<SquareGridProps> = ({}) => {
         },
         0
       ).to(".js-scanner", { opacity: 0 });
+
       gridTimeline.add(tl, 0);
-      gridTimeline.add(
-        gsap.to(".js-stream-illegal", {
-          color: "#ff4053",
-        }),
-        6.95
-      );
+
       gridTimeline.play();
 
       gridTimeline.timeScale(1.5);
@@ -139,7 +130,6 @@ const SquareGrid: React.FC<SquareGridProps> = ({}) => {
         ]}
       />
       <SquareRow
-        isDetected={isStreamDetected}
         streams={[{ type: "suspicious", position: 28, class: "js-stream-28" }]}
       />
       <SquareRow
