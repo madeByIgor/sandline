@@ -1,5 +1,5 @@
 .wrapper {
-  --height: 150vh;
+  --height: 100vh;
   width: 81px;
   height: var(--height);
   position: absolute;

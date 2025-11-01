@@ -29,6 +29,7 @@ body {
   color: var(--textblack);
   background-color: var(--bg);
   min-height: 100vh;
+  overflow-x: hidden;
 }
 
 * {

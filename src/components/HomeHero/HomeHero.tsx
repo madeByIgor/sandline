@@ -4,18 +4,15 @@ import Button from "../UI/Button/Button";
 import { useGlobalContext } from "../../context/GlobalContext";
 
 import HomeHeroDefend from "./HomeHeroDefend/HomeHeroDefend";
+import SquareGrid from "../UI/SquareGrid/SquareGrid";
 
 interface HomeHeroProps {}
 
 const HomeHero: React.FC<HomeHeroProps> = ({}) => {
   const { isIllegalStream, squareFullScreenRef } = useGlobalContext();
   return (
-    <>
-      <div
-        ref={squareFullScreenRef}
-        className={`${styles.squareFullScreen}`}
-      ></div>
-      <section className={`${styles.wrapper}`}>
+    <div className={`${styles.wrapper}`}>
+      <section className={`${styles.contentWrapper}`}>
         <div className={`${styles.inner}`}>
           <div className={`${styles.content}`}>
             <h1 className={styles.heading}>
@@ -36,7 +33,8 @@ const HomeHero: React.FC<HomeHeroProps> = ({}) => {
           </div>
         </div>
       </section>
-    </>
+      <SquareGrid />
+    </div>
   );
 };
 
