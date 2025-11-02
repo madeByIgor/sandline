@@ -9,7 +9,7 @@ import SquareGrid from "../UI/SquareGrid/SquareGrid";
 interface HomeHeroProps {}
 
 const HomeHero: React.FC<HomeHeroProps> = ({}) => {
-  const { isIllegalStream, squareFullScreenRef } = useGlobalContext();
+  const { isIllegalStream } = useGlobalContext();
   return (
     <div className={`${styles.wrapper}`}>
       <section className={`${styles.contentWrapper}`}>

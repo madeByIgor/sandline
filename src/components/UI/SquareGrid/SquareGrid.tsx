@@ -1,203 +1,83 @@
-import { useGSAP } from "@gsap/react";
-import { gsap } from "gsap";
-import React, { useState } from "react";
 import Scanner from "../Scanner/Scanner";
 import SquareRow from "../SquareRow/SquareRow";
 import styles from "./style.module.css";
 
 import { useGlobalContext } from "../../../context/GlobalContext";
 import Map from "../Map/Map";
+import type { StreamType } from "../Square/Square";
+import { useMapAnimation } from "./Animation/useMapAnimation";
 
-interface SquareGridProps {}
+const stream = (
+  type: StreamType["type"],
+  position: number,
+  className?: string
+): StreamType => ({
+  type,
+  position,
+  class: className ?? `js-stream-${position}`,
+});
 
-const SquareGrid: React.FC<SquareGridProps> = ({}) => {
+const GRID_ROWS: Array<StreamType[] | undefined> = [
+  [stream("suspicious", 36), stream("legal", 32), stream("suspicious", 30)],
+  [stream("legal", 34), stream("suspicious", 39)],
+  [
+    stream("suspicious", 8),
+    stream("legal", 11),
+    stream("suspicious", 27),
+    stream("legal", 38),
+    stream("legal", 30),
+    stream("suspicious", 31),
+  ],
+  [stream("suspicious", 28)],
+  [
+    stream("suspicious", 6),
+    stream("suspicious", 11),
+    stream("suspicious", 28),
+    stream("suspicious", 30),
+  ],
+  [
+    stream("suspicious", 5),
+    stream("legal", 12),
+    stream("suspicious", 27),
+    stream("suspicious", 34),
+  ],
+  [stream("legal", 8)],
+  [stream("suspicious", 9), stream("suspicious", 12)],
+  undefined,
+  [stream("legal", 8)],
+  undefined,
+  undefined, // central row
+  undefined,
+  undefined,
+  [stream("suspicious", 15)],
+  [stream("suspicious", 18)],
+  undefined,
+  undefined,
+  undefined,
+  undefined,
+  [stream("legal", 16), stream("suspicious", 33)],
+  [stream("legal", 15), stream("suspicious", 32)],
+  undefined,
+];
+
+const SquareGrid = () => {
   const { squareGridRef, gridTimeline, setGridTimeline, heroAniDone } =
     useGlobalContext();
 
-  useGSAP(() => {
-    // const deviceWidth = window.innerWidth;
-    const gridTl = gsap.timeline({ paused: true });
-
-    setGridTimeline(gridTl);
+  useMapAnimation({
+    scopeRef: squareGridRef,
+    timeline: gridTimeline,
+    setTimeline: setGridTimeline,
+    heroAniDone,
   });
-
-  useGSAP(
-    () => {
-      if (!gridTimeline) return;
-      const deviceWidth = window.innerWidth;
-      const tl = gsap.timeline({});
-      tl.to(
-        ".js-scanner",
-        {
-          duration: 10,
-          x: deviceWidth,
-          ease: "linear",
-        },
-        0
-      ).to(".js-scanner", { opacity: 0 });
-
-      gridTimeline.add(tl, 0);
-
-      gridTimeline.play();
-
-      gridTimeline.timeScale(1.5);
-    },
-    { scope: squareGridRef, dependencies: [gridTimeline] }
-  );
-
-  useGSAP(
-    () => {
-      if (!heroAniDone) return;
-      const tl = gsap.timeline({ delay: 0.75 });
-      const tl2 = gsap.timeline({ repeat: -1 });
-
-      gsap.to(".js-legal-stream .js-circle", { opacity: 1, scale: 1 });
-      gsap.set(".js-legal-stream .js-pulsing-circle", {
-        scale: 0,
-        transformOrigin: "50% 50%",
-      });
-      tl2
-        .to(".js-legal-stream .js-pulsing-circle", {
-          opacity: 0.16,
-          scale: 0.4,
-        })
-        .to(".js-legal-stream .js-pulsing-circle", {
-          scale: 0.6,
-          opacity: 0,
-          ease: "power1.out",
-          duration: 0.25,
-        });
-
-      tl.to(".js-suspicious-square .js-qmark", { opacity: 0, scale: 0 })
-        .to(".js-suspicious-square", {
-          color: "#ff4053",
-        })
-        .to(".js-suspicious-square .js-circle", { opacity: 1, scale: 1 })
-        .to(".js-suspicious-square .js-pulsing-circle", {
-          scale: 1,
-          opacity: 0.3,
-          ease: "linear",
-        })
-        .to(".js-suspicious-square .js-pulsing-circle", {
-          scale: 2,
-          opacity: 0,
-          stagger: {
-            each: 0.05,
-            from: "center",
-          },
-        })
-        .to(
-          ".js-suspicious-square",
-          {
-            color: "gray",
-            stagger: {
-              each: 0.05,
-              from: "center",
-            },
-          },
-          "<"
-        );
-    },
-    { scope: squareGridRef, dependencies: [heroAniDone] }
-  );
 
   return (
     <div ref={squareGridRef} className={`${styles.grid} js-square-grid`}>
       <Scanner />
       <Map />
-      {/*  */}
-      <SquareRow
-        streams={[
-          { type: "suspicious", position: 36, class: "js-stream-36" },
-          { type: "legal", position: 32, class: "js-stream-32" },
-          { type: "suspicious", position: 30, class: "js-stream-30" },
-        ]}
-      />
-      <SquareRow
-        streams={[
-          { type: "legal", position: 34, class: "js-stream-34" },
-          { type: "suspicious", position: 39, class: "js-stream-39" },
-        ]}
-      />
-      <SquareRow
-        streams={[
-          { type: "suspicious", position: 8, class: "js-stream-8" },
-          { type: "legal", position: 11, class: "js-stream-11" },
-          { type: "suspicious", position: 27, class: "js-stream-27" },
-          { type: "legal", position: 38, class: "js-stream-38" },
-          { type: "legal", position: 30, class: "js-stream-30" },
-          { type: "suspicious", position: 31, class: "js-stream-31" },
-        ]}
-      />
-      <SquareRow
-        streams={[{ type: "suspicious", position: 28, class: "js-stream-28" }]}
-      />
-      <SquareRow
-        streams={[
-          { type: "suspicious", position: 6, class: "js-stream-6" },
-          { type: "suspicious", position: 11, class: "js-stream-11" },
-          { type: "suspicious", position: 28, class: "js-stream-28" },
-          { type: "suspicious", position: 30, class: "js-stream-30" },
-        ]}
-      />
-      <SquareRow
-        streams={[
-          { type: "suspicious", position: 5, class: "js-stream-5" },
-          { type: "legal", position: 12, class: "js-stream-12" },
-          { type: "suspicious", position: 27, class: "js-stream-27" },
-          { type: "suspicious", position: 34, class: "js-stream-34" },
-        ]}
-      />
-      <SquareRow
-        streams={[{ type: "legal", position: 8, class: "js-stream-8" }]}
-      />
-      <SquareRow
-        streams={[
-          { type: "suspicious", position: 9, class: "js-stream-9" },
-          { type: "suspicious", position: 12, class: "js-stream-12" },
-        ]}
-      />
-      <SquareRow />
-      <SquareRow
-        streams={[
-          {
-            type: "legal",
-            position: 8,
-            class: "js-stream-8",
-          },
-        ]}
-      />
-      {/* row with detected pirate stream */}
-      <SquareRow />
-      {/* central row */}
-      <SquareRow />
-      <SquareRow />
-      <SquareRow
-      // streams={[{ type: "legal", position: 14, class: "js-stream-four" }]}
-      />{" "}
-      <SquareRow
-        streams={[{ type: "suspicious", position: 15, class: "js-stream-15" }]}
-      />
-      <SquareRow
-        streams={[{ type: "suspicious", position: 18, class: "js-stream-18" }]}
-      />
-      <SquareRow />
-      <SquareRow />
-      <SquareRow />
-      <SquareRow />
-      <SquareRow
-        streams={[
-          { type: "legal", position: 16, class: "js-stream-16" },
-          { type: "suspicious", position: 33, class: "js-stream-33" },
-        ]}
-      />
-      <SquareRow
-        streams={[
-          { type: "legal", position: 15, class: "js-stream-15" },
-          { type: "suspicious", position: 32, class: "js-stream-32" },
-        ]}
-      />
-      <SquareRow />
+      {GRID_ROWS.map((streams, index) => (
+        <SquareRow key={index} streams={streams} />
+      ))}
     </div>
   );
 };
