@@ -3,6 +3,5 @@
   height: 1.5vw;
   display: grid;
   grid-template-columns: repeat(50, 1fr);
-  /* gap: 1px; */
-  /* background-color: grey; */
+  gap: 1px;
 }

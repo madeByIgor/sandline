@@ -19,7 +19,7 @@ interface SquareProps {
   stream?: StreamType;
 }
 
-const Square: React.FC<SquareProps> = ({ stream }) => {
+const Square: React.FC<SquareProps> = ({ stream, index }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const timeline = useRef<GSAPTimeline | null>(null);
   const { isIllegalStream } = useGlobalContext();
@@ -65,6 +65,7 @@ const Square: React.FC<SquareProps> = ({ stream }) => {
     >
       {stream?.type === "legal" && <LegalSquare stream={stream} />}
       {stream?.type === "suspicious" && <SuspiciousSquare stream={stream} />}
+      <p className={`${styles.n}`}> {index}</p>
     </div>
   );
 };
