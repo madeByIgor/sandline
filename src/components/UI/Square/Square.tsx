@@ -65,7 +65,6 @@ const Square: React.FC<SquareProps> = ({ stream, index }) => {
     >
       {stream?.type === "legal" && <LegalSquare stream={stream} />}
       {stream?.type === "suspicious" && <SuspiciousSquare stream={stream} />}
-      <p className={`${styles.n}`}> {index}</p>
     </div>
   );
 };
